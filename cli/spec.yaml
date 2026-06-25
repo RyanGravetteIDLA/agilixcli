@@ -1,0 +1,4309 @@
+name: agilix-buzz
+description: "Agilix Buzz LMS CLI — full DLAP command surface plus offline activity analytics and content review."
+version: "0.1.0"
+cli_description: "The first maintained, agent-native CLI for Agilix Buzz — every DLAP command plus offline activity analytics, content review, and a local database no other Buzz tool has."
+category: productivity
+base_url: "https://api.agilixbuzz.com"
+health_check_path: "/cmd?cmd=getstatus"
+required_headers:
+  - name: User-Agent
+    value: "agilix-buzz-pp-cli/0.1 (+https://github.com/mvanhorn/printing-press-library)"
+  - name: Accept
+    value: "application/json"
+auth:
+  type: bearer_token
+  header: "Authorization"
+  format: "Bearer {token}"
+  in: header
+  env_vars:
+    - BUZZ_TOKEN
+config:
+  format: toml
+  path: "~/.config/agilix-buzz/config.toml"
+mcp:
+  transport: [stdio, http]
+  orchestration: code
+  endpoint_tools: hidden
+resources:
+  session:
+    description: "Authentication & session (login, token, proxy/login-as)"
+    endpoints:
+      clear-second-factor-authentication:
+        method: POST
+        path: "/cmd?cmd=clearsecondfactorauthentication"
+        description: "Clears 2FA (second factor authentication) settings for the specified user account, allowing the user to login without 2FA (the user will hav"
+        params:
+          - name: userid
+            type: string
+            required: false
+      create-second-factor-authentication-secret:
+        method: GET
+        path: "/cmd?cmd=createsecondfactorauthenticationsecret"
+        description: "This command creates an RFC 6238 second factor authentication secret for use with 2FA authentication."
+        params:
+          - name: encryption
+            type: string
+            required: false
+      extend-session:
+        method: POST
+        path: "/cmd?cmd=extendsession"
+        description: "Each API command automatically refreshes the authorization token, extending the expiration for the duration originally specified at login, b"
+      finish-password-reset:
+        method: POST
+        path: "/cmd?cmd=finishpasswordreset"
+        description: "This command updates the password of the specified user."
+        params:
+          - name: token
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+      force-password-change:
+        method: POST
+        path: "/cmd?cmd=forcepasswordchange"
+        description: "Forces a user to change their password the next time they login, exactly as if their password had expired."
+        params:
+          - name: userid
+            type: string
+            required: false
+      get-key:
+        method: GET
+        path: "/cmd?cmd=getkey"
+        description: "This command retrieves a name/value pair from an entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+      get-password-login-attempt-history:
+        method: GET
+        path: "/cmd?cmd=getpasswordloginattempthistory"
+        description: "Gets the record of password login attempts for the specified user account."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: earliestrecordtoreturn
+            type: string
+            required: false
+      get-password-question:
+        method: GET
+        path: "/cmd?cmd=getpasswordquestion"
+        description: "This command gets the question to ask a user who has forgotten their password."
+        params:
+          - name: username
+            type: string
+            required: false
+      login:
+        method: POST
+        path: "/cmd?cmd=login3"
+        description: "For server-side API integrations, OAuth 2.0 Application Identity is now available as an alternative authentication mechanism."
+        params:
+          - name: username
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: expireseconds
+            type: string
+            required: false
+          - name: newsession
+            type: string
+            required: false
+          - name: token
+            type: string
+            required: false
+          - name: remembermfa
+            type: string
+            required: false
+      logout:
+        method: POST
+        path: "/cmd?cmd=logout"
+        description: "This command terminates the session state for an authenticated user."
+        params:
+          - name: reusable
+            type: string
+            required: false
+          - name: clearallbrowserdata
+            type: string
+            required: false
+      proxy:
+        method: POST
+        path: "/cmd?cmd=proxy"
+        description: "This command starts a session as a different user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: noazt
+            type: string
+            required: false
+      put-key:
+        method: GET
+        path: "/cmd?cmd=putkey"
+        description: "This command stores a name/value pair on an entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: value
+            type: string
+            required: false
+      reset-lockout:
+        method: POST
+        path: "/cmd?cmd=resetlockout"
+        description: "This command resets an account that has been locked out due to too many contiguous password failures."
+        params:
+          - name: userid
+            type: string
+            required: false
+      reset-password:
+        method: POST
+        path: "/cmd?cmd=resetpassword"
+        description: "This command sends an email to the specified user with a time-limited link that can be used to reset their password."
+        params:
+          - name: username
+            type: string
+            required: false
+          - name: firstname
+            type: string
+            required: false
+          - name: lastname
+            type: string
+            required: false
+          - name: answer
+            type: string
+            required: false
+      second-factor-authenticate:
+        method: POST
+        path: "/cmd?cmd=secondfactorauthenticate"
+        description: "This command completes the two factor part of authentication for users who have opted for two factor authentication."
+        params:
+          - name: otp
+            type: string
+            required: false
+          - name: rememberdevice
+            type: string
+            required: false
+      setup-second-factor-authentication:
+        method: POST
+        path: "/cmd?cmd=setupsecondfactorauthentication"
+        description: "Turns on second factor authentication for an account."
+        params:
+          - name: delivery
+            type: string
+            required: false
+          - name: encryption
+            type: string
+            required: false
+          - name: secret
+            type: string
+            required: false
+          - name: otp1
+            type: string
+            required: false
+          - name: otp2
+            type: string
+            required: false
+      unproxy:
+        method: POST
+        path: "/cmd?cmd=unproxy"
+        description: "This command ends a proxy session."
+        params:
+          - name: noazt
+            type: string
+            required: false
+      update-password:
+        method: POST
+        path: "/cmd?cmd=updatepassword"
+        description: "This command updates the password of the specified user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: token
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: oldpassword
+            type: string
+            required: false
+      update-password-question-answer:
+        method: POST
+        path: "/cmd?cmd=updatepasswordquestionanswer"
+        description: "This command updates the password question and answer for the specified user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: passwordquestion
+            type: string
+            required: false
+          - name: passwordanswer
+            type: string
+            required: false
+          - name: oldpassword
+            type: string
+            required: false
+  system:
+    description: "Server status & general utilities"
+    endpoints:
+      get-command-list:
+        method: GET
+        path: "/cmd?cmd=getcommandlist"
+        description: "This returns a complete list of all commands available on the API Server."
+      get-entity-type:
+        method: GET
+        path: "/cmd?cmd=getentitytype"
+        description: "This command gets the entity type (Course, Domain, Group, or Section) for a given entity ID."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      get-status:
+        method: GET
+        path: "/cmd?cmd=getstatus"
+        description: "The API servers do fairly extensive self-testing for all subsystems."
+        params:
+          - name: rating
+            type: string
+            required: false
+          - name: sms
+            type: bool
+            required: false
+          - name: html
+            type: bool
+            required: false
+      send-mail:
+        method: POST
+        path: "/cmd?cmd=sendmail"
+        description: "This command sends an e-mail to recipients that are enrolled in the same entity as that specified by the sender's enrollmentid ."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+  domains:
+    description: "Domains (schools/districts) & hierarchy"
+    endpoints:
+      create:
+        method: POST
+        path: "/cmd?cmd=createdomains"
+        description: "This command creates one or more domains and links them as children to the domain specified by parentid."
+        params:
+          - name: name
+            type: string
+            required: false
+          - name: userspace
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+      get-settings:
+        method: GET
+        path: "/cmd?cmd=getdomainsettings"
+        description: "Retrieve domain-hierarchy-merged application settings (no auth required)."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: includesource
+            type: bool
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getdomain2"
+        description: "This command gets information for the specified domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-content:
+        method: GET
+        path: "/cmd?cmd=getdomaincontent"
+        description: "This command returns the list of content items for the current signed-on user’s domain."
+      get-enrollment-metrics:
+        method: GET
+        path: "/cmd?cmd=getdomainenrollmentmetrics"
+        description: "This command gets enrollment metrics for courses in the specified domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: skipempty
+            type: string
+            required: false
+      get-enrollment-metrics-parameters:
+        method: GET
+        path: "/cmd?cmd=getdomainenrollmentmetricsparameters"
+        description: "This command gets parameters that affect calculations used in Enrollment Metrics , Course EnrollmentMetrics , and GetDomainEnrollmentMetrics"
+        params:
+          - name: domainid
+            type: string
+            required: false
+      get-parent-list:
+        method: GET
+        path: "/cmd?cmd=getdomainparentlist"
+        description: "This command gets the list of parent domains for a domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: includesource
+            type: string
+            required: false
+      get-stats:
+        method: GET
+        path: "/cmd?cmd=getdomainstats"
+        description: "This command gets statistics for a domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: options
+            type: string
+            required: false
+          - name: recurse
+            type: string
+            required: false
+      list:
+        method: GET
+        path: "/cmd?cmd=listdomains"
+        description: "This command lists domains."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: show
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: text
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: includemanageddomains
+            type: string
+            required: false
+      restore:
+        method: GET
+        path: "/cmd?cmd=restoredomain"
+        description: "This command restores a deleted domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updatedomains"
+        description: "This command updates the name, reference value, flags, and free-forn structured data of one or more domains."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+  users:
+    description: "User accounts"
+    endpoints:
+      create:
+        method: POST
+        path: "/cmd?cmd=createusers2"
+        description: "This command creates one or more users."
+        params:
+          - name: forcepasswordchange
+            type: string
+            required: false
+          - name: type
+            type: string
+            required: false
+          - name: username
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: passwordquestion
+            type: string
+            required: false
+          - name: passwordanswer
+            type: string
+            required: false
+          - name: firstname
+            type: string
+            required: false
+          - name: lastname
+            type: string
+            required: false
+          - name: email
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+          - name: rights
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getuser2"
+        description: "This command gets information for a particular user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-active-count:
+        method: GET
+        path: "/cmd?cmd=getactiveusercount"
+        description: "Gets the number of active users either currently or for the given date range."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: persona
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: byday
+            type: string
+            required: false
+          - name: bymonth
+            type: string
+            required: false
+          - name: byyear
+            type: string
+            required: false
+      get-activity:
+        method: GET
+        path: "/cmd?cmd=getuseractivity"
+        description: "This command lists the login activity for a user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+      get-activity-stream:
+        method: GET
+        path: "/cmd?cmd=getuseractivitystream"
+        description: "This command lists activities in a user's activity stream."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: startkey
+            type: string
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: types
+            type: string
+            required: false
+      get-domain-activity:
+        method: GET
+        path: "/cmd?cmd=getdomainactivity"
+        description: "This command lists activity for all users in a specified domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: maxusers
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-profile-picture:
+        method: GET
+        path: "/cmd?cmd=getprofilepicture"
+        description: "This command gets binary content for the user's profile picture if it exists."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: usedefault
+            type: string
+            required: false
+      list:
+        method: GET
+        path: "/cmd?cmd=listusers"
+        description: "This command lists users."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: show
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: text
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+      restore:
+        method: POST
+        path: "/cmd?cmd=restoreuser"
+        description: "This command restores a deleted user."
+        params:
+          - name: userid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updateusers"
+        description: "This command updates the first name, last name, reference field, e-mail address, and flags for one or more users."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: username
+            type: string
+            required: false
+          - name: firstname
+            type: string
+            required: false
+          - name: lastname
+            type: string
+            required: false
+          - name: email
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+      verify-email:
+        method: POST
+        path: "/cmd?cmd=verifyuseremail"
+        description: "This command verifies a messaging account associated with a user."
+        params:
+          - name: type
+            type: string
+            required: false
+          - name: code
+            type: string
+            required: false
+          - name: userid
+            type: string
+            required: false
+  courses:
+    description: "Courses & course copy"
+    endpoints:
+      copy:
+        method: POST
+        path: "/cmd?cmd=copycourses"
+        description: "This command copies one or more courses."
+        params:
+          - name: courseid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: action
+            type: string
+            required: false
+          - name: depth
+            type: int
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: type
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: days
+            type: string
+            required: false
+          - name: term
+            type: string
+            required: false
+          - name: indexrule
+            type: string
+            required: false
+      create:
+        method: POST
+        path: "/cmd?cmd=createcourses"
+        description: "This command creates one or more courses."
+        params:
+          - name: title
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+          - name: type
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: days
+            type: string
+            required: false
+          - name: term
+            type: string
+            required: false
+          - name: indexrule
+            type: string
+            required: false
+      create-demo:
+        method: POST
+        path: "/cmd?cmd=createdemocourse"
+        description: "This command creates a demo course."
+        params:
+          - name: courseid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: daysoffset
+            type: string
+            required: false
+          - name: sourceid
+            type: string
+            required: false
+          - name: destinationid
+            type: string
+            required: false
+      deactivate:
+        method: GET
+        path: "/cmd?cmd=deactivatecourse"
+        description: "This command deactivates a course."
+        params:
+          - name: courseid
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getcourse2"
+        description: "This command gets information for a course."
+        params:
+          - name: courseid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      list:
+        method: GET
+        path: "/cmd?cmd=listcourses"
+        description: "This command lists courses."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: show
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: text
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: subscriptionmode
+            type: string
+            required: false
+          - name: subscriptiondomainid
+            type: string
+            required: false
+      merge:
+        method: POST
+        path: "/cmd?cmd=mergecourses"
+        description: "This command merges the deltas from a derivative course into its immediate base course."
+        params:
+          - name: courseid
+            type: string
+            required: false
+      restore:
+        method: GET
+        path: "/cmd?cmd=restorecourse"
+        description: "This command restores a deleted course."
+        params:
+          - name: courseid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updatecourses"
+        description: "This command updates the title, reference, data (free-form XML), and other attributes of one or more courses."
+        params:
+          - name: courseid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: type
+            type: string
+            required: false
+          - name: baseid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: days
+            type: string
+            required: false
+          - name: term
+            type: string
+            required: false
+          - name: indexrule
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+  enrollments:
+    description: "Enrollments (user-course bindings) & activity"
+    endpoints:
+      create:
+        method: POST
+        path: "/cmd?cmd=createenrollments"
+        description: "This command enrolls a user with the specified rights in a course."
+        params:
+          - name: disallowduplicates
+            type: bool
+            required: false
+          - name: disallowsamestatusduplicates
+            type: bool
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getenrollment3"
+        description: "This command gets enrollment data for a particular enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-activity:
+        method: GET
+        path: "/cmd?cmd=getenrollmentactivity"
+        description: "This command gets the activity detail for the specified user enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: last
+            type: string
+            required: false
+          - name: mergeoverlap
+            type: bool
+            required: false
+      get-gradebook:
+        method: GET
+        path: "/cmd?cmd=getenrollmentgradebook2"
+        description: "This command gets the gradebook detail, including rolled-up period, category, and course grades, for the specified user enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: forcerequireditems
+            type: bool
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: gradingscheme
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: scorm
+            type: bool
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      get-group-list:
+        method: GET
+        path: "/cmd?cmd=getenrollmentgrouplist"
+        description: "This command lists groups that the specified enrollment is a member of."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+      get-metrics-report:
+        method: GET
+        path: "/cmd?cmd=getenrollmentmetricsreport"
+        description: "Returns report data for the enrollment metrics of a domain, teacher, or student."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: report
+            type: string
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: nodata
+            type: bool
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: filename
+            type: string
+            required: false
+          - name: format
+            type: string
+            required: false
+          - name: spreadsheet
+            type: bool
+            required: false
+          - name: utcoffset
+            type: int
+            required: false
+      list:
+        method: GET
+        path: "/cmd?cmd=listenrollments"
+        description: "This command lists enrollments."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: show
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: userdomainid
+            type: string
+            required: false
+          - name: userquery
+            type: string
+            required: false
+          - name: usertext
+            type: string
+            required: false
+          - name: coursedomainid
+            type: string
+            required: false
+          - name: coursequery
+            type: string
+            required: false
+          - name: coursetext
+            type: string
+            required: false
+      list-by-teacher:
+        method: GET
+        path: "/cmd?cmd=listenrollmentsbyteacher"
+        description: "This command lists enrollments in courses where the specified user is a teacher."
+        params:
+          - name: teacheruserid
+            type: string
+            required: false
+          - name: teacherallstatus
+            type: bool
+            required: false
+          - name: teacherdaysactivepastend
+            type: int
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      list-entity:
+        method: GET
+        path: "/cmd?cmd=listentityenrollments"
+        description: "This command lists enrollments in the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      list-user:
+        method: GET
+        path: "/cmd?cmd=listuserenrollments"
+        description: "This command lists enrollments for the specified user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      put-self-assessment:
+        method: GET
+        path: "/cmd?cmd=putselfassessment"
+        description: "This command puts self-assessment ratings of understanding, interest, and effort into the student's Enrollment Metrics ."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: understanding
+            type: string
+            required: false
+          - name: interest
+            type: string
+            required: false
+          - name: effort
+            type: string
+            required: false
+      restore:
+        method: POST
+        path: "/cmd?cmd=restoreenrollment"
+        description: "This command restores a deleted enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updateenrollments"
+        description: "This command updates the enrollment status, start date, end date, and rights granted to the specified user for a course."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+  rights:
+    description: "Rights & role assignments"
+    endpoints:
+      create-role:
+        method: POST
+        path: "/cmd?cmd=createrole"
+        description: "This command creates a role on a given domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: entitytype
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getrights"
+        description: "This command gets the rights granted to the specified actor (user or role) for the specified entity (domain, course, or section)."
+        params:
+          - name: actorid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+      get-actor:
+        method: GET
+        path: "/cmd?cmd=getactorrights"
+        description: "This command lists entities that an actor (user) has rights for."
+        params:
+          - name: actorid
+            type: string
+            required: false
+          - name: entitytypes
+            type: string
+            required: false
+      get-effective:
+        method: GET
+        path: "/cmd?cmd=geteffectiverights"
+        description: "This command gets the effective rights granted to the current user for the specified entity (domain, course, or section)."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      get-effective-subscription-list:
+        method: GET
+        path: "/cmd?cmd=geteffectivesubscriptionlist"
+        description: "This command lists effective subscriptions for the current signed-in user, including those inherited from the user's domain, and excluding a"
+        params:
+          - name: select
+            type: string
+            required: false
+      get-entity:
+        method: GET
+        path: "/cmd?cmd=getentityrights"
+        description: "This command lists users and the rights granted to those users for the specified entity (domain, course, section, enrollment or user.)"
+        params:
+          - name: entityid
+            type: string
+            required: false
+      get-entity-subscription-list:
+        method: GET
+        path: "/cmd?cmd=getentitysubscriptionlist"
+        description: "This command lists subscriptions to the specified entity (course or domain)."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: subscriberid
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getrightslist"
+        description: "This command lists rights granted to users on entities (domains, users, and enrollments)."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: restrictdomain
+            type: string
+            required: false
+      get-personas:
+        method: GET
+        path: "/cmd?cmd=getpersonas"
+        description: "This command gets the list of personas associated with a user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+      get-role:
+        method: GET
+        path: "/cmd?cmd=getrole"
+        description: "This command gets information for a role."
+        params:
+          - name: roleid
+            type: string
+            required: false
+      get-subscription-list:
+        method: GET
+        path: "/cmd?cmd=getsubscriptionlist"
+        description: "This command lists subscriptions explicitly assigned to the specified subscriber (user or domain)."
+        params:
+          - name: subscriberid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+      list-roles:
+        method: GET
+        path: "/cmd?cmd=listroles"
+        description: "This command lists roles defined for a domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+      restore-role:
+        method: GET
+        path: "/cmd?cmd=restorerole"
+        description: "This command restores a role that has been previously deleted."
+        params:
+          - name: roleid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updaterights"
+        description: "This command updates the rights (flags) granted to the specified user (actorid) for the domain or enrollment specified by entityid."
+        params:
+          - name: actorid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: roleid
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+      update-role:
+        method: POST
+        path: "/cmd?cmd=updaterole"
+        description: "This command updates the name, domainid, reference, or privileges for a role."
+        params:
+          - name: roleid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: entitytype
+            type: string
+            required: false
+      update-subscriptions:
+        method: POST
+        path: "/cmd?cmd=updatesubscriptions"
+        description: "This command creates or updates the subscription for the specified subscriber."
+        params:
+          - name: subscriberid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: subscriptionflags
+            type: string
+            required: false
+  gradebook:
+    description: "Gradebook results & grading"
+    endpoints:
+      calculate-enrollment-scenario:
+        method: POST
+        path: "/cmd?cmd=calculateenrollmentscenario"
+        description: "This command calculates a rolled-up (category, period, and course) grade scenario for the specified user enrollment given the supplied input"
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+          - name: achieved
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: possible
+            type: string
+            required: false
+      get-calendar:
+        method: GET
+        path: "/cmd?cmd=getcalendar"
+        description: "Gets the iCalendar (RFC2445) file of events for the user or enrollments specified by token."
+        params:
+          - name: token
+            type: string
+            required: false
+      get-calendar-items:
+        method: GET
+        path: "/cmd?cmd=getcalendaritems"
+        description: "This command gets duedates and blackoutdates for the specified enrollments."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+      get-calendar-token:
+        method: GET
+        path: "/cmd?cmd=getcalendartoken"
+        description: "Get a token to generate a URL that can retrieve the current user's calendar without any authentication."
+        params:
+          - name: enrollment
+            type: string
+            required: false
+          - name: appname
+            type: string
+            required: false
+      get-certificates:
+        method: GET
+        path: "/cmd?cmd=getcertificates"
+        description: "This command gets the completion certificates associated with a course or section enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+      get-due-soon-list:
+        method: GET
+        path: "/cmd?cmd=getduesoonlist"
+        description: "This command gets list of items that will soon become due for a student."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: showcompleted
+            type: string
+            required: false
+          - name: showpastdue
+            type: string
+            required: false
+          - name: days
+            type: string
+            required: false
+          - name: utcoffset
+            type: int
+            required: false
+      get-entity-summary:
+        method: GET
+        path: "/cmd?cmd=getentitygradebooksummary"
+        description: "This command gets grade summaries for students enrolled in the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: enrollmentids
+            type: string
+            required: false
+          - name: forcerequireditems
+            type: bool
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: gradingscheme
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      get-entity-work:
+        method: GET
+        path: "/cmd?cmd=getentitywork2"
+        description: "Gets the list of items that have been graded or need grading in a course back to a specified date."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: outstanding
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: include
+            type: string
+            required: false
+      get-grade:
+        method: GET
+        path: "/cmd?cmd=getgrade"
+        description: "This command gets the grade detail for the specified user enrollment and item."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-grade-history:
+        method: GET
+        path: "/cmd?cmd=getgradehistory"
+        description: "This command gets the history of grades for an item in the gradebook for the specified user enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-item-analysis:
+        method: GET
+        path: "/cmd?cmd=getitemanalysis2"
+        description: "Some items compute their score from scores assigned within the item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: summary
+            type: string
+            required: false
+          - name: verbose
+            type: bool
+            required: false
+          - name: sources
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+      get-item-report:
+        method: GET
+        path: "/cmd?cmd=getitemreport"
+        description: "Some items compute their score from scores assigned within the item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: report
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: filename
+            type: string
+            required: false
+          - name: format
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+          - name: spreadsheet
+            type: bool
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getgradebooklist"
+        description: "This command lists entities (courses and sections) that have gradebooks."
+        params:
+          - name: title
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+      get-rubric-mastery:
+        method: GET
+        path: "/cmd?cmd=getrubricmastery"
+        description: "This command gets report data that shows how students are performing for items related to the specified rubric."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: rubricentityid
+            type: string
+            required: false
+          - name: rubricpath
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      get-rubric-stats:
+        method: GET
+        path: "/cmd?cmd=getrubricstats"
+        description: "This command gets detailed information about responses and scores associated with the rules in a rubric."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: ruleid
+            type: string
+            required: false
+      get-summary:
+        method: GET
+        path: "/cmd?cmd=getgradebooksummary"
+        description: "This command gets a summary of course participants that match the specified parameters."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: verbose
+            type: bool
+            required: false
+          - name: calculated
+            type: string
+            required: false
+          - name: scorm
+            type: bool
+            required: false
+          - name: completed
+            type: string
+            required: false
+      get-user:
+        method: GET
+        path: "/cmd?cmd=getusergradebook2"
+        description: "This command gets gradebook detail for the specified user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: forcerequireditems
+            type: bool
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: gradingscheme
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: scorm
+            type: bool
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      get-weights:
+        method: GET
+        path: "/cmd?cmd=getgradebookweights"
+        description: "This command gets the item and category gradebook weights for the specified entity, optionally filtered by a specific grading period."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: periodid
+            type: string
+            required: false
+      getentitygradebook2:
+        method: GET
+        path: "/cmd?cmd=getentitygradebook2"
+        description: "This command gets grades for all students enrolled in the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: forcerequireditems
+            type: bool
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: gradingscheme
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: scorm
+            type: bool
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      getentitygradebook3:
+        method: GET
+        path: "/cmd?cmd=getentitygradebook3"
+        description: "This command gets grades for students enrolled in the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: enrollmentids
+            type: string
+            required: false
+          - name: forcerequireditems
+            type: bool
+            required: false
+          - name: gradingschemeid
+            type: string
+            required: false
+          - name: gradingscheme
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: scorm
+            type: bool
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: userid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+  items:
+    description: "Manifests & content items"
+    endpoints:
+      assign:
+        method: POST
+        path: "/cmd?cmd=assignitem"
+        description: "Assigning an item to a folder changes the item’s parent and sequence to the specified values."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: folderid
+            type: string
+            required: false
+          - name: sequence
+            type: string
+            required: false
+      copy:
+        method: POST
+        path: "/cmd?cmd=copyitems"
+        description: "This command copies one or more items from one course to another."
+        params:
+          - name: sourceentityid
+            type: string
+            required: false
+          - name: sourceitemid
+            type: string
+            required: false
+          - name: destinationentityid
+            type: string
+            required: false
+          - name: destinationitemid
+            type: string
+            required: false
+          - name: deep
+            type: string
+            required: false
+      find-personalized-entities:
+        method: GET
+        path: "/cmd?cmd=findpersonalizedentities"
+        description: "This command finds the course, enrollment, and group entities that contain items which have been personalized in the way specified by the qu"
+        params:
+          - name: courseid
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: includegroups
+            type: string
+            required: false
+          - name: privileges
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+      get-data:
+        method: GET
+        path: "/cmd?cmd=getmanifestdata"
+        description: "This command gets the manifest data (see Course Data ) for the specified entity (course, section, group, or enrollment) except for the <item"
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: cached
+            type: string
+            required: false
+      get-links:
+        method: GET
+        path: "/cmd?cmd=getitemlinks"
+        description: "This command gets a list of manifest items that link to the specified item through course or item chaining."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: derivatives
+            type: string
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: links
+            type: string
+            required: false
+          - name: recurse
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getitemlist"
+        description: "This command lists items."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: allversions
+            type: string
+            required: false
+      getitem:
+        method: GET
+        path: "/cmd?cmd=getitem"
+        description: "This command gets a manifest item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: embedmaster
+            type: string
+            required: false
+      getiteminfo:
+        method: POST
+        path: "/cmd?cmd=getiteminfo"
+        description: "This command gets information about an item in the course, section or group specified by entityid ."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      getmanifest:
+        method: GET
+        path: "/cmd?cmd=getmanifest"
+        description: "This command gets the manifest for the specified entity (course, section, group, or enrollment)."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: cached
+            type: string
+            required: false
+      getmanifestinfo:
+        method: POST
+        path: "/cmd?cmd=getmanifestinfo"
+        description: "This command gets information about the manifest of one or more courses or sections."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      getmanifestitem:
+        method: GET
+        path: "/cmd?cmd=getmanifestitem"
+        description: "This command gets an item and optionally some of its descendents from the manifest of a course or section."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: generations
+            type: string
+            required: false
+      list-assignable:
+        method: GET
+        path: "/cmd?cmd=listassignableitems"
+        description: "ListAssignableItems uses the assignableitemsquery attribute on the folderid item to list items in the course that may be assigned to folderi"
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: folderid
+            type: string
+            required: false
+          - name: showassigned
+            type: string
+            required: false
+      list-restorable:
+        method: GET
+        path: "/cmd?cmd=listrestorableitems"
+        description: "This command lists items that have been deleted and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      navigate:
+        method: POST
+        path: "/cmd?cmd=navigateitem"
+        description: "This command attempts to navigate a user's enrollment to a course item."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: utcoffset
+            type: int
+            required: false
+          - name: ltidr
+            type: string
+            required: false
+          - name: ltilc
+            type: string
+            required: false
+          - name: ltilh
+            type: string
+            required: false
+          - name: ltill
+            type: string
+            required: false
+          - name: ltilr
+            type: string
+            required: false
+          - name: ltilt
+            type: string
+            required: false
+          - name: ltilw
+            type: string
+            required: false
+          - name: ltioe
+            type: string
+            required: false
+          - name: ltitc
+            type: string
+            required: false
+          - name: ltitg
+            type: string
+            required: false
+          - name: ltitn
+            type: string
+            required: false
+          - name: ltitu
+            type: string
+            required: false
+          - name: ltitv
+            type: string
+            required: false
+      put:
+        method: POST
+        path: "/cmd?cmd=putitems"
+        description: "This command puts one or more items in a manifest."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      restore:
+        method: POST
+        path: "/cmd?cmd=restoreitems"
+        description: "This command restores one or more items in a manifest."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      search:
+        method: GET
+        path: "/cmd?cmd=search2"
+        description: "This command searches course content that has been marked by course creators as searchable and returns a paginated list of results."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: omitentityid
+            type: string
+            required: false
+          - name: itemtype
+            type: string
+            required: false
+          - name: subscriptions
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: start
+            type: string
+            required: false
+      unassign:
+        method: POST
+        path: "/cmd?cmd=unassignitem"
+        description: "Unassigning an item changes the item’s parent and sequence to their default values (the values they would have if they had never been assign"
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      update-data:
+        method: POST
+        path: "/cmd?cmd=updatemanifestdata"
+        description: "This command updates the manifest data (see Course Data ) on the specified entity (course or section.) Only the elements specified in the PO"
+        params:
+          - name: entityid
+            type: string
+            required: false
+  submissions:
+    description: "Student submissions & responses"
+    endpoints:
+      get-sco-data:
+        method: GET
+        path: "/cmd?cmd=getscodata"
+        description: "This command gets a user's SCORM data for a SCO activity from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: review
+            type: string
+            required: false
+          - name: submittedversion
+            type: string
+            required: false
+      get-student:
+        method: GET
+        path: "/cmd?cmd=getstudentsubmission"
+        description: "This command gets a student's submission."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: inline
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-student-history:
+        method: GET
+        path: "/cmd?cmd=getstudentsubmissionhistory"
+        description: "This command gets the history of submissions for an item in the gradebook for the specified user enrollment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-student-info:
+        method: POST
+        path: "/cmd?cmd=getstudentsubmissioninfo"
+        description: "This command retrieves information about one or more student submissions from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-teacher-response:
+        method: GET
+        path: "/cmd?cmd=getteacherresponse"
+        description: "This command gets a teacher's response to a student's submission."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: inline
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-teacher-response-info:
+        method: POST
+        path: "/cmd?cmd=getteacherresponseinfo"
+        description: "This command retrieves information about teacher responses from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-work-in-progress:
+        method: GET
+        path: "/cmd?cmd=getworkinprogress2"
+        description: "This command gets a work-in-progress file."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: inline
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      put-item-activity:
+        method: POST
+        path: "/cmd?cmd=putitemactivity"
+        description: "This command reports per-item student time spent to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: newattempt
+            type: string
+            required: false
+          - name: seconds
+            type: string
+            required: false
+      put-sco-data:
+        method: POST
+        path: "/cmd?cmd=putscodata"
+        description: "This command puts a user's SCORM data for a SCO activity to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: value
+            type: string
+            required: false
+      put-student:
+        method: POST
+        path: "/cmd?cmd=putstudentsubmission"
+        description: "This command puts a student submission for an activity to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: recordactivity
+            type: string
+            required: false
+      put-teacher-response:
+        method: POST
+        path: "/cmd?cmd=putteacherresponse"
+        description: "This command puts teacher response data including scores, comments, and grade status flags to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      put-teacher-responses:
+        method: POST
+        path: "/cmd?cmd=putteacherresponses"
+        description: "This command puts one or more teacher responses including scores and grade status flags to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: scoredversion
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: mask
+            type: string
+            required: false
+          - name: pointsassigned
+            type: string
+            required: false
+          - name: pointscomputed
+            type: string
+            required: false
+          - name: pointspossible
+            type: string
+            required: false
+          - name: letter
+            type: string
+            required: false
+          - name: submitteddate
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      put-work-in-progress:
+        method: POST
+        path: "/cmd?cmd=putworkinprogress"
+        description: "This command puts a work-in-progress file on the server in preparation for a student submission."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: disposition
+            type: string
+            required: false
+          - name: keephistory
+            type: string
+            required: false
+      submit-work-in-progress:
+        method: POST
+        path: "/cmd?cmd=submitworkinprogress"
+        description: "This command submits work-in-progress files on the server as a completed submission for the student."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+  objectives:
+    description: "Learning objectives & progress"
+    endpoints:
+      create-sets:
+        method: POST
+        path: "/cmd?cmd=createobjectivesets"
+        description: "This command creates one or more objective sets or objective map sets, which are containers for either objectives or objective maps, respect"
+        params:
+          - name: name
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: owner
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getobjectivelist"
+        description: "This command gets a list of learning objectives."
+        params:
+          - name: setid
+            type: string
+            required: false
+          - name: guid
+            type: string
+            required: false
+          - name: parent
+            type: string
+            required: false
+          - name: grades
+            type: string
+            required: false
+          - name: subject
+            type: string
+            required: false
+      get-map-list:
+        method: GET
+        path: "/cmd?cmd=getobjectivemaplist"
+        description: "This command gets the list of maps defined in an objective map set."
+        params:
+          - name: setid
+            type: string
+            required: false
+      get-mastery:
+        method: GET
+        path: "/cmd?cmd=getobjectivemastery"
+        description: "This command gets objective mastery report data for the specified entity using student scores from objective-aligned items and questions."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+          - name: guid
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+          - name: mappedonly
+            type: string
+            required: false
+      get-mastery-detail:
+        method: GET
+        path: "/cmd?cmd=getmasterydetail"
+        description: "This command summarizes a single learning objective's mastery for each enrollment in the specified entities."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: guid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+      get-mastery-summary:
+        method: GET
+        path: "/cmd?cmd=getmasterysummary"
+        description: "This command lists learning objectives and summarizes their mastery for enrollments in the specified entities."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: allstatus
+            type: bool
+            required: false
+          - name: setid
+            type: string
+            required: false
+          - name: mapsetid
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: grades
+            type: string
+            required: false
+          - name: subject
+            type: string
+            required: false
+          - name: zerounscored
+            type: bool
+            required: false
+          - name: filterbycourseobjectives
+            type: string
+            required: false
+      get-set:
+        method: GET
+        path: "/cmd?cmd=getobjectiveset2"
+        description: "This command gets information for a objective set or objective map set."
+        params:
+          - name: setid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-subject-list:
+        method: GET
+        path: "/cmd?cmd=getobjectivesubjectlist"
+        description: "This command gets the list of subjects covered by the learning objectives for an objective set."
+        params:
+          - name: setid
+            type: string
+            required: false
+          - name: guid
+            type: string
+            required: false
+          - name: parent
+            type: string
+            required: false
+          - name: grades
+            type: string
+            required: false
+      list-sets:
+        method: GET
+        path: "/cmd?cmd=listobjectivesets"
+        description: "This command gets a list of objective sets or objective map sets."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: includedescendantdomains
+            type: bool
+            required: false
+          - name: limit
+            type: int
+            required: false
+          - name: show
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: text
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: map
+            type: string
+            required: false
+          - name: inherit
+            type: string
+            required: false
+      put:
+        method: POST
+        path: "/cmd?cmd=putobjectives"
+        description: "This creates or updates one or more learning objectives and puts them in an objective set."
+        params:
+          - name: guid
+            type: string
+            required: false
+          - name: id
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: grades
+            type: string
+            required: false
+          - name: subject
+            type: string
+            required: false
+          - name: parent
+            type: string
+            required: false
+      put-maps:
+        method: POST
+        path: "/cmd?cmd=putobjectivemaps"
+        description: "This command creates or updates one or more objective maps and puts them into an objective map set."
+        params:
+          - name: setid
+            type: string
+            required: false
+          - name: guid
+            type: string
+            required: false
+          - name: correlation
+            type: string
+            required: false
+          - name: weight
+            type: string
+            required: false
+      restore-set:
+        method: GET
+        path: "/cmd?cmd=restoreobjectiveset"
+        description: "This command restores a deleted objective set."
+        params:
+          - name: setid
+            type: string
+            required: false
+      update-sets:
+        method: POST
+        path: "/cmd?cmd=updateobjectivesets"
+        description: "This command updates the name, reference, and other attributes of one or more objective sets or objective map sets."
+        params:
+          - name: setid
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: owner
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+  files:
+    description: "Course resources & files"
+    endpoints:
+      copy:
+        method: POST
+        path: "/cmd?cmd=copyresources"
+        description: "This command copies one or more resources from the domain or course specified by sourceentityid to the domain or course specified by destina"
+        params:
+          - name: sourceentityid
+            type: string
+            required: false
+          - name: sourcepath
+            type: string
+            required: false
+          - name: destinationentityid
+            type: string
+            required: false
+          - name: destinationpath
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getresource"
+        description: "This command gets resource metadata and/or binary content for the course, section, enrollment, user, or domain."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: attachment
+            type: string
+            required: false
+          - name: class
+            type: string
+            required: false
+      get-document:
+        method: GET
+        path: "/cmd?cmd=getdocument"
+        description: "This command retrieves a user document from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-document-info:
+        method: POST
+        path: "/cmd?cmd=getdocumentinfo"
+        description: "This command retrieves information about one or more user documents from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+      get-entity-id:
+        method: GET
+        path: "/cmd?cmd=getentityresourceid"
+        description: "This command gets the resource entity ID of the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      get-info:
+        method: POST
+        path: "/cmd?cmd=getresourceinfo2"
+        description: "This command gets information about a resource in the domain, course, section, or enrollment specified by entityid ."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: class
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getresourcelist2"
+        description: "This command lists metadata for entity (domain, course, or enrollment) resources."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: recurse
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: allversions
+            type: string
+            required: false
+          - name: entries
+            type: string
+            required: false
+          - name: class
+            type: string
+            required: false
+      list-restorable:
+        method: GET
+        path: "/cmd?cmd=listrestorableresources"
+        description: "This command lists resources that have been deleted and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      list-restorable-documents:
+        method: GET
+        path: "/cmd?cmd=listrestorabledocuments"
+        description: "This command lists documents that have been deleted and can be restored."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      put:
+        method: POST
+        path: "/cmd?cmd=putresource"
+        description: "This command puts a resource to the server for the specified course, section, enrollment, user, or domain."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+          - name: class
+            type: string
+            required: false
+          - name: drophistory
+            type: string
+            required: false
+          - name: contenttype
+            type: string
+            required: false
+      put-folders:
+        method: POST
+        path: "/cmd?cmd=putresourcefolders"
+        description: "This command creates one or more resource folders for a domain or course."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+      restore:
+        method: POST
+        path: "/cmd?cmd=restoreresources"
+        description: "This command restores one or more resources in a domain, course, or enrollment."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      restore-documents:
+        method: POST
+        path: "/cmd?cmd=restoredocuments"
+        description: "This command restores one or more documents."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+  reports:
+    description: "Reports"
+    endpoints:
+      get-info:
+        method: GET
+        path: "/cmd?cmd=getreportinfo"
+        description: "This command lists the information about a report including the parameters required to run it."
+        params:
+          - name: reportid
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getreportlist"
+        description: "This command lists all reports defined on a domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+      get-runnable-list:
+        method: GET
+        path: "/cmd?cmd=getrunnablereportlist"
+        description: "This command lists all reports available to the currently logged-on user."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: domainid
+            type: string
+            required: false
+      run:
+        method: GET
+        path: "/cmd?cmd=runreport"
+        description: "This command runs the specified report."
+        params:
+          - name: reportid
+            type: string
+            required: false
+          - name: entityid
+            type: string
+            required: false
+          - name: format
+            type: string
+            required: false
+          - name: nodata
+            type: bool
+            required: false
+          - name: spreadsheet
+            type: bool
+            required: false
+  groups:
+    description: "Groups"
+    endpoints:
+      add-members:
+        method: POST
+        path: "/cmd?cmd=addgroupmembers"
+        description: "This command adds one or more member enrollments to an existing group."
+        params:
+          - name: groupid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+      create:
+        method: POST
+        path: "/cmd?cmd=creategroups"
+        description: "This command creates one or more groups in the specified owner course."
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: ownerid
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getgroup"
+        description: "This command gets information for a particular group."
+        params:
+          - name: groupid
+            type: string
+            required: false
+      get-enrollment-list:
+        method: GET
+        path: "/cmd?cmd=getgroupenrollmentlist"
+        description: "This command lists enrollments for the specified group."
+        params:
+          - name: groupid
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getgrouplist"
+        description: "This command lists groups in the specified owner entity (course)."
+        params:
+          - name: ownerid
+            type: string
+            required: false
+          - name: includeenrollments
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+      remove-members:
+        method: POST
+        path: "/cmd?cmd=removegroupmembers"
+        description: "This command removes one or more member enrollments from an existing group."
+        params:
+          - name: groupid
+            type: string
+            required: false
+          - name: enrollmentid
+            type: string
+            required: false
+      update:
+        method: POST
+        path: "/cmd?cmd=updategroups"
+        description: "This command updates the title, set ID, reference, and data of one or more groups."
+        params:
+          - name: groupid
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: reference
+            type: string
+            required: false
+          - name: setid
+            type: string
+            required: false
+  discussions:
+    description: "Discussion boards"
+    endpoints:
+      get-message:
+        method: GET
+        path: "/cmd?cmd=getmessage"
+        description: "This command returns a discussion forum message."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+      get-message-list:
+        method: GET
+        path: "/cmd?cmd=getmessagelist"
+        description: "This command returns the messages associated with a discussion board of an entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+      list-restorable-messages:
+        method: GET
+        path: "/cmd?cmd=listrestorablemessages"
+        description: "This command lists messages that have been deleted from a entity and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      put-message:
+        method: POST
+        path: "/cmd?cmd=putmessage"
+        description: "This command puts a discussion board message to the server."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+      put-message-part:
+        method: POST
+        path: "/cmd?cmd=putmessagepart"
+        description: "This command puts individual parts of a discussion board message to the server."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: disposition
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+      restore-messages:
+        method: POST
+        path: "/cmd?cmd=restoremessages"
+        description: "This command restores one or more messages in a discussion forum."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      submit-message:
+        method: POST
+        path: "/cmd?cmd=submitmessage"
+        description: "This command assembles changes from the PutMessagePart and DeleteMessagePart commands into a new message and posts the new message to the se"
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: status
+            type: string
+            required: false
+      update-message-viewed:
+        method: POST
+        path: "/cmd?cmd=updatemessageviewed"
+        description: "This command updates a user’s viewed state of one or more discussion board messages."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: viewed
+            type: string
+            required: false
+  announcements:
+    description: "Announcements"
+    endpoints:
+      get:
+        method: GET
+        path: "/cmd?cmd=getannouncement"
+        description: "This command gets an announcement, which is a file that conforms to the Announcement format."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-info:
+        method: GET
+        path: "/cmd?cmd=getannouncementinfo"
+        description: "This command gets information about an announcement."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getannouncementlist"
+        description: "This command lists an entity's announcements."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: modifieddate
+            type: string
+            required: false
+      get-user-list:
+        method: GET
+        path: "/cmd?cmd=getuserannouncementlist"
+        description: "This command lists course, section, and domain announcements for the current user."
+        params:
+          - name: userid
+            type: string
+            required: false
+          - name: daysactivepastend
+            type: int
+            required: false
+      list-restorable:
+        method: GET
+        path: "/cmd?cmd=listrestorableannouncements"
+        description: "This command lists domainor course announcements that have been deleted and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      put:
+        method: POST
+        path: "/cmd?cmd=putannouncement"
+        description: "This command posts an announcement to the domain or course specified by entityid ."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+      restore:
+        method: POST
+        path: "/cmd?cmd=restoreannouncements"
+        description: "This command restores one or more domain or course announcements."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      update-viewed:
+        method: POST
+        path: "/cmd?cmd=updateannouncementviewed"
+        description: "This command updates the viewed state of one or more domain announcements for the current signed-on user."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: path
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: viewed
+            type: string
+            required: false
+  badges:
+    description: "Badges"
+    endpoints:
+      create:
+        method: POST
+        path: "/cmd?cmd=createbadge"
+        description: "This command creates a badge."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: imageentityid
+            type: string
+            required: false
+          - name: imagepath
+            type: string
+            required: false
+          - name: requirements
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+          - name: description
+            type: string
+            required: false
+          - name: origin
+            type: string
+            required: false
+          - name: org
+            type: string
+            required: false
+          - name: contact
+            type: string
+            required: false
+      get:
+        method: GET
+        path: "/cmd?cmd=getbadge"
+        description: "This command gets the badge image."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: badgeid
+            type: string
+            required: false
+      get-assertion:
+        method: GET
+        path: "/cmd?cmd=getbadgeassertion"
+        description: "This command gets the assertion associated with a badge."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: badgeid
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getbadgelist"
+        description: "This command gets a list of badges for a user."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+  blogs:
+    description: "Blogs"
+    endpoints:
+      get:
+        method: GET
+        path: "/cmd?cmd=getblog"
+        description: "This command gets a blog or journal message, which conforms to the Message format."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-list:
+        method: GET
+        path: "/cmd?cmd=getbloglist"
+        description: "This command returns a list of blog or journal messages for the specified enrollment and item, ordered by message creationdate ."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: start
+            type: string
+            required: false
+          - name: rows
+            type: string
+            required: false
+          - name: startdate
+            type: string
+            required: false
+          - name: enddate
+            type: string
+            required: false
+          - name: tag
+            type: string
+            required: false
+          - name: sort
+            type: string
+            required: false
+      get-recent-posts:
+        method: GET
+        path: "/cmd?cmd=getrecentposts"
+        description: "This command returns recent posts to discussion boards, wikis, blogs and journals that have not been marked as viewed."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: rows
+            type: string
+            required: false
+          - name: manifestonly
+            type: string
+            required: false
+      get-summary:
+        method: GET
+        path: "/cmd?cmd=getblogsummary"
+        description: "This command returns a blog or journal summary for each enrollment in the specified entity."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      put:
+        method: POST
+        path: "/cmd?cmd=putblog"
+        description: "This command puts a blog or journal message to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: parentid
+            type: string
+            required: false
+          - name: authorid
+            type: string
+            required: false
+      update-viewed:
+        method: POST
+        path: "/cmd?cmd=updateblogviewed"
+        description: "This command updates a user’s viewed state of one or more blog messages."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: messageid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+          - name: viewed
+            type: string
+            required: false
+  wikis:
+    description: "Wikis"
+    endpoints:
+      copy-pages:
+        method: POST
+        path: "/cmd?cmd=copywikipages"
+        description: "This command copies one or more wiki pages from the specified source course, item and group to the specified destination course, item and gr"
+        params:
+          - name: sourceentityid
+            type: string
+            required: false
+          - name: sourceitemid
+            type: string
+            required: false
+          - name: sourcegroupid
+            type: string
+            required: false
+          - name: sourceslug
+            type: string
+            required: false
+          - name: destinationentityid
+            type: string
+            required: false
+          - name: destinationitemid
+            type: string
+            required: false
+          - name: destinationgroupid
+            type: string
+            required: false
+          - name: destinationslug
+            type: string
+            required: false
+      get-page-list:
+        method: GET
+        path: "/cmd?cmd=getwikipagelist"
+        description: "This command lists metadata for wiki pages."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: slug
+            type: string
+            required: false
+          - name: allversions
+            type: string
+            required: false
+      list-restorable-pages:
+        method: GET
+        path: "/cmd?cmd=listrestorablewikipages"
+        description: "This command lists wiki pages that have been deleted from a course or section and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: slug
+            type: string
+            required: false
+      put-page:
+        method: POST
+        path: "/cmd?cmd=putwikipage"
+        description: "This command puts a wiki page to the server."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: slug
+            type: string
+            required: false
+      restore-pages:
+        method: POST
+        path: "/cmd?cmd=restorewikipages"
+        description: "This command restores one or more wiki pages in a course or section."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: slug
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      update-page-viewed:
+        method: POST
+        path: "/cmd?cmd=updatewikipageviewed"
+        description: "This command updates a user’s viewed state of one or more wiki pages."
+        params:
+          - name: username
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: token
+            type: string
+            required: false
+  ratings:
+    description: "Ratings"
+    endpoints:
+      get-item:
+        method: GET
+        path: "/cmd?cmd=getitemrating"
+        description: "This command gets a user rating on a manifest item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      get-item-summary:
+        method: GET
+        path: "/cmd?cmd=getitemratingsummary"
+        description: "This command gets the summary of user ratings on a manifest item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: flags
+            type: string
+            required: false
+      put-item:
+        method: GET
+        path: "/cmd?cmd=putitemrating"
+        description: "This command puts a user rating on a manifest item."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: rating
+            type: string
+            required: false
+  peergrading:
+    description: "Peer grading"
+    endpoints:
+      get-response:
+        method: GET
+        path: "/cmd?cmd=getpeerresponse"
+        description: "This command gets a peer's response to a student's submission."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: peerid
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-response-info:
+        method: POST
+        path: "/cmd?cmd=getpeerresponseinfo"
+        description: "This command retrieves information about peer responses from the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: peerid
+            type: string
+            required: false
+      get-response-list:
+        method: POST
+        path: "/cmd?cmd=getpeerresponselist"
+        description: "This command lists peer's responses to the specified student's submission to a course item."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: select
+            type: string
+            required: false
+      get-review-list:
+        method: GET
+        path: "/cmd?cmd=getpeerreviewlist"
+        description: "This command lists peers that may be reviewed by the specified enrollment user."
+        params:
+          - name: peerid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+      put-response:
+        method: POST
+        path: "/cmd?cmd=putpeerresponse"
+        description: "This command puts peer response data including comments, rubric score, and likert responses to the server."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: peerid
+            type: string
+            required: false
+  tokens:
+    description: "Command tokens (delegated links)"
+    endpoints:
+      create-command:
+        method: POST
+        path: "/cmd?cmd=createcommandtokens"
+        description: "This command creates one or more command tokens."
+        params:
+          - name: scopeentityid
+            type: string
+            required: false
+          - name: description
+            type: string
+            required: false
+          - name: runasuserid
+            type: string
+            required: false
+          - name: allowunauthenticatedredemption
+            type: string
+            required: false
+          - name: totalusecountlimit
+            type: string
+            required: false
+          - name: userusecountlimit
+            type: string
+            required: false
+          - name: peruserusecountlimit
+            type: string
+            required: false
+          - name: perusercodes
+            type: string
+            required: false
+          - name: codelength
+            type: string
+            required: false
+          - name: startvalidity
+            type: string
+            required: false
+          - name: endvalidity
+            type: string
+            required: false
+      get-command:
+        method: GET
+        path: "/cmd?cmd=getcommandtoken"
+        description: "This command gets details about a previously created command token."
+        params:
+          - name: commandtokenid
+            type: string
+            required: false
+      get-command-info:
+        method: GET
+        path: "/cmd?cmd=getcommandtokeninfo"
+        description: "This command gets the description and other non-sensitive info about a previously created command token from the code."
+        params:
+          - name: code
+            type: string
+            required: false
+          - name: scopedomainid
+            type: string
+            required: false
+      list-command:
+        method: GET
+        path: "/cmd?cmd=listcommandtokens"
+        description: "This command lists all the command tokens created by a particular user and associated with a specified domain, course, group, or user."
+        params:
+          - name: onlyvalid
+            type: string
+            required: false
+          - name: runasuserid
+            type: string
+            required: false
+          - name: scopeentityid
+            type: string
+            required: false
+      redeem-command:
+        method: GET
+        path: "/cmd?cmd=redeemcommandtoken"
+        description: "This command redeems a command token using the code given to the currently authenticated user by the creator."
+        params:
+          - name: code
+            type: string
+            required: false
+          - name: commandtokenid
+            type: string
+            required: false
+          - name: scopedomainid
+            type: string
+            required: false
+      update-command:
+        method: POST
+        path: "/cmd?cmd=updatecommandtokens"
+        description: "This command updates one or more existing command tokens, regenerating codes if the desired length or per-user settings change."
+        params:
+          - name: commandtokenid
+            type: string
+            required: false
+          - name: scopeentityid
+            type: string
+            required: false
+          - name: description
+            type: string
+            required: false
+          - name: runasuserid
+            type: string
+            required: false
+          - name: allowunauthenticatedredemption
+            type: string
+            required: false
+          - name: totalusecountlimit
+            type: string
+            required: false
+          - name: userusecountlimit
+            type: string
+            required: false
+          - name: peruserusecountlimit
+            type: string
+            required: false
+          - name: perusercodes
+            type: string
+            required: false
+          - name: codelength
+            type: string
+            required: false
+          - name: startvalidity
+            type: string
+            required: false
+          - name: endvalidity
+            type: string
+            required: false
+  datastreams:
+    description: "Data streams"
+    endpoints:
+      get-data-stream-configuration:
+        method: GET
+        path: "/cmd?cmd=getdatastreamconfiguration"
+        description: "This command gets the data stream configuration previously set using SetDataStreamConfiguration for a specified domain."
+        params:
+          - name: domainid
+            type: string
+            required: false
+      set-data-stream-configuration:
+        method: POST
+        path: "/cmd?cmd=setdatastreamconfiguration"
+        description: "This command tests a given data stream configuration to see if it is valid and if the API servers can connect to it and if successful, sets "
+        params:
+          - name: domainid
+            type: string
+            required: false
+          - name: test
+            type: string
+            required: false
+          - name: title
+            type: string
+            required: false
+          - name: enabled
+            type: string
+            required: false
+          - name: targetFirehoseStream
+            type: string
+            required: false
+          - name: roleArn
+            type: string
+            required: false
+          - name: targetRegion
+            type: string
+            required: false
+          - name: eventType
+            type: string
+            required: false
+          - name: properties
+            type: string
+            required: false
+          - name: targetKinesisStream
+            type: string
+            required: false
+          - name: streamName
+            type: string
+            required: false
+          - name: timeoutSeconds
+            type: string
+            required: false
+          - name: retries
+            type: string
+            required: false
+          - name: endpoints
+            type: string
+            required: false
+          - name: httpMethod
+            type: string
+            required: false
+          - name: targetSqsQueue
+            type: string
+            required: false
+  conversion:
+    description: "Format conversion"
+    endpoints:
+      export-data:
+        method: POST
+        path: "/cmd?cmd=exportdata"
+        description: "This command convert structured post data to a tab or comma-delimited file."
+        params:
+          - name: to
+            type: string
+            required: false
+          - name: saveto
+            type: string
+            required: false
+          - name: bom
+            type: string
+            required: false
+          - name: spreadsheet
+            type: bool
+            required: false
+      get-converted-data:
+        method: GET
+        path: "/cmd?cmd=getconverteddata"
+        description: "Retrieves the converted data generated from either ImportData or ExportData and deletes the temporary file."
+        params:
+          - name: path
+            type: string
+            required: false
+          - name: name
+            type: string
+            required: false
+      import-data:
+        method: POST
+        path: "/cmd?cmd=importdata"
+        description: "This command imports and converts various data formats."
+        params:
+          - name: from
+            type: string
+            required: false
+          - name: saveto
+            type: string
+            required: false
+          - name: responsetype
+            type: string
+            required: false
+          - name: filetype
+            type: string
+            required: false
+          - name: maxsize
+            type: string
+            required: false
+          - name: maxrows
+            type: string
+            required: false
+  assessments:
+    description: "Agilix Buzz assessments commands"
+    endpoints:
+      get-attempt:
+        method: GET
+        path: "/cmd?cmd=getattempt"
+        description: "This command returns the data needed for an assessment or homework attempt."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+          - name: password
+            type: string
+            required: false
+          - name: utcoffset
+            type: int
+            required: false
+      get-attempt-file:
+        method: GET
+        path: "/cmd?cmd=getattemptfile"
+        description: "This command gets a uploaded file associated with a fileupload question."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: inline
+            type: string
+            required: false
+      get-attempt-review:
+        method: GET
+        path: "/cmd?cmd=getattemptreview"
+        description: "This command returns the data needed to review an assessment or homework attempt."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: submissionversion
+            type: string
+            required: false
+          - name: responseversion
+            type: string
+            required: false
+          - name: packagetype
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false
+          - name: filepath
+            type: string
+            required: false
+          - name: inline
+            type: string
+            required: false
+          - name: forviewing
+            type: string
+            required: false
+      get-next-question:
+        method: POST
+        path: "/cmd?cmd=getnextquestion"
+        description: "Submits answers for the current question in an adpative assessment."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: action
+            type: string
+            required: false
+          - name: page
+            type: int
+            required: false
+          - name: seconds
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false
+      get-question:
+        method: GET
+        path: "/cmd?cmd=getquestion"
+        description: "This command gets one question from a course."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+      get-question-scores:
+        method: POST
+        path: "/cmd?cmd=getquestionscores"
+        description: "This command scores one or more question submissions."
+        params:
+          - name: type
+            type: string
+            required: false
+      get-question-stats:
+        method: GET
+        path: "/cmd?cmd=getquestionstats"
+        description: "This command gets system-wide statistics about a particular question."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      get-submission-state:
+        method: GET
+        path: "/cmd?cmd=getsubmissionstate"
+        description: "Retrieves state information for an enrollment's assessment or homework submission, including whether the enrollment can start, resume, or re"
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: utcoffset
+            type: int
+            required: false
+          - name: createifempty
+            type: string
+            required: false
+      list-questions:
+        method: GET
+        path: "/cmd?cmd=listquestions"
+        description: "This command lists one or more questions in a course."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+          - name: query
+            type: string
+            required: false
+          - name: count
+            type: int
+            required: false
+          - name: allversions
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+      list-restorable-questions:
+        method: GET
+        path: "/cmd?cmd=listrestorablequestions"
+        description: "This command lists questions that have been deleted and can be restored."
+        params:
+          - name: entityid
+            type: string
+            required: false
+      put-attempt-file:
+        method: POST
+        path: "/cmd?cmd=putattemptfile"
+        description: "This command puts files on the server to be associated with a fileupload question as part of a student assessment/homework attempt."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false
+      put-questions:
+        method: POST
+        path: "/cmd?cmd=putquestions"
+        description: "This command puts (adds or updates) one or more questions in a course."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+          - name: schema
+            type: string
+            required: false
+          - name: score
+            type: string
+            required: false
+          - name: partial
+            type: string
+            required: false
+          - name: round
+            type: string
+            required: false
+      restore-questions:
+        method: POST
+        path: "/cmd?cmd=restorequestions"
+        description: "This command restores one or more questions in a course."
+        params:
+          - name: entityid
+            type: string
+            required: false
+          - name: questionid
+            type: string
+            required: false
+          - name: version
+            type: string
+            required: false
+      save-attempt-answers:
+        method: POST
+        path: "/cmd?cmd=saveattemptanswers"
+        description: "Save answers for an assessment of homework group attempt for later use."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: page
+            type: int
+            required: false
+          - name: seconds
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false
+          - name: bookmark
+            type: string
+            required: false
+          - name: clientdata
+            type: string
+            required: false
+      submit-attempt-answers:
+        method: POST
+        path: "/cmd?cmd=submitattemptanswers"
+        description: "Submits answers for an assessment of homework group attempt for grading."
+        params:
+          - name: enrollmentid
+            type: string
+            required: false
+          - name: itemid
+            type: string
+            required: false
+          - name: groupid
+            type: string
+            required: false
+          - name: page
+            type: int
+            required: false
+          - name: seconds
+            type: string
+            required: false
+          - name: partid
+            type: string
+            required: false

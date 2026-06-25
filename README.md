@@ -7,6 +7,10 @@ into a live Buzz course via the CLI, so the build is reproducible and reviewable
 ## Contents
 
 ```
+cli/               agilix-buzz-pp-cli — the Go CLI + MCP server (full DLAP surface)
+  cmd/agilix-buzz-pp-cli   CLI entrypoint
+  cmd/agilix-buzz-pp-mcp   MCP server (stdio | http) for agents
+  internal/                client, commands, analytics, store, mcp orchestration
 docs/plans/        Planning documents (ce-plan output)
 course/
   lessons/         Standalone lesson HTML (uploaded as course resources)
@@ -14,6 +18,15 @@ course/
   structure/       Manifest batches: module/lesson skeleton + assessment items
   BUILD.md         How to rebuild the course from these files
 ```
+
+## The CLI & MCP server
+
+`cli/` holds **agilix-buzz-pp-cli**, an agent-native CLI covering the full Agilix
+Buzz DLAP command surface (238 commands) plus offline activity analytics, content
+review, and a local cache. It ships an **MCP server** (`cmd/agilix-buzz-pp-mcp`,
+stdio or HTTP transport) that exposes the same surface to AI agents via
+code-orchestration. Build with `cd cli && make build` (or `go build ./...`);
+binaries are git-ignored. Read/create/update only — delete commands are gated.
 
 ## Current course: Google Workspace Account Recovery (for Technology Directors)
 

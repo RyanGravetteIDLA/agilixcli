@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.3",
+  "name": "agilix-buzz-pp-mcp",
+  "display_name": "Agilix Buzz",
+  "version": "0.0.0",
+  "description": "The first maintained, agent-native CLI for Agilix Buzz — every DLAP command plus offline activity analytics, content review, and a local database no other Buzz tool has.",
+  "author": {
+    "name": "CLI Printing Press"
+  },
+  "license": "Apache-2.0",
+  "server": {
+    "type": "binary",
+    "entry_point": "bin/agilix-buzz-pp-mcp",
+    "mcp_config": {
+      "command": "${__dirname}/bin/agilix-buzz-pp-mcp",
+      "args": [],
+      "env": {
+        "BUZZ_TOKEN": "${user_config.buzz_token}"
+      }
+    }
+  },
+  "user_config": {
+    "buzz_token": {
+      "type": "string",
+      "title": "BUZZ_TOKEN",
+      "description": "Sets BUZZ_TOKEN for the Agilix Buzz MCP server.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ]
+  }
+}

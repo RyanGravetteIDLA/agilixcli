@@ -2,3 +2,9 @@
 scratchpad/
 *.tmp
 baseline-manifest.json
+
+# Go build artifacts (binaries are not committed)
+cli/agilix-buzz-pp-cli
+cli/agilix-buzz-pp-mcp
+cli/build/
+*.mcpb

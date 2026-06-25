@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-24T16:58:51.313215Z",
+  "printing_press_version": "4.25.0",
+  "api_name": "agilix-buzz",
+  "display_name": "Agilix Buzz",
+  "cli_name": "agilix-buzz-pp-cli",
+  "creator": {
+    "handle": "RyanGravetteIDLA",
+    "name": "RyanGravetteIDLA"
+  },
+  "owner": "ryangravetteidla",
+  "printer": "RyanGravetteIDLA",
+  "printer_name": "RyanGravetteIDLA",
+  "spec_format": "internal",
+  "spec_checksum": "sha256:a8ac960c0f4b3869199a131d8c13694e00d9d3fe535e01671568e72ceb0ed39f",
+  "run_id": "20260623-100230-298a5784",
+  "category": "productivity",
+  "description": "The first maintained, agent-native CLI for Agilix Buzz — every DLAP command plus offline activity analytics, content review, and a local database no other Buzz tool has.",
+  "mcp_binary": "agilix-buzz-pp-mcp",
+  "mcp_tool_count": 239,
+  "mcp_ready": "full",
+  "api_version": "0.1.0",
+  "auth_type": "bearer_token",
+  "auth_env_vars": [
+    "BUZZ_TOKEN"
+  ],
+  "novel_features": [
+    {
+      "name": "Stale-gradebook / ungraded-backlog finder",
+      "command": "gradebook stale",
+      "description": "Find teachers and courses with the largest ungraded backlogs and the oldest unscored submissions, tree-wide."
+    },
+    {
+      "name": "Teacher engagement \u0026 grading-cadence report",
+      "command": "teacher activity",
+      "description": "Per-teacher last login, days since last grade, median submit-to-grade turnaround, feedback count, and active-section count — flags inactive teachers."
+    },
+    {
+      "name": "At-risk / falling-behind student detector",
+      "command": "students falling-behind",
+      "description": "Ranks students by a composite risk score: idle days, low completion ratio, low submission rate, and grades below a threshold."
+    },
+    {
+      "name": "Macro class engagement \u0026 grade distribution",
+      "command": "class engagement",
+      "description": "Per-section active-vs-idle counts, submission and completion rates, A-F grade-distribution histogram, per-item completion funnel, and mean time-on-task."
+    },
+    {
+      "name": "Course content-structure viewer",
+      "command": "content tree",
+      "description": "Renders a course's full item hierarchy (folders, assignments, assessments) with type, points, due dates, and resource-count rollups."
+    },
+    {
+      "name": "Course content diff",
+      "command": "content diff",
+      "description": "Diffs two courses' content: added/removed/changed items, points-total drift, and resource-count drift."
+    },
+    {
+      "name": "Tree-wide role audit \u0026 co-occurrence",
+      "command": "roles audit",
+      "description": "Lists every role and right a user holds across the whole domain tree and builds a role co-occurrence matrix."
+    },
+    {
+      "name": "Roster-vs-live reconciliation",
+      "command": "reconcile",
+      "description": "Read-only diff between a provided roster file and live enrollments: who is missing, extra, or has a role mismatch."
+    }
+  ]
+}

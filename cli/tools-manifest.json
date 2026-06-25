@@ -1,0 +1,6975 @@
+{
+  "api_name": "agilix-buzz",
+  "base_url": "https://api.agilixbuzz.com",
+  "description": "The first maintained, agent-native CLI for Agilix Buzz — every DLAP command plus offline activity analytics, content review, and a local database no other Buzz tool has.",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "mcp": {
+    "endpoint_tools": "hidden",
+    "orchestration": "code"
+  },
+  "auth": {
+    "type": "bearer_token",
+    "header": "Authorization",
+    "format": "Bearer {BUZZ_TOKEN}",
+    "in": "header",
+    "env_vars": [
+      "BUZZ_TOKEN"
+    ],
+    "env_var_specs": [
+      {
+        "name": "BUZZ_TOKEN",
+        "kind": "per_call",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ]
+  },
+  "required_headers": [
+    {
+      "name": "User-Agent",
+      "value": "agilix-buzz-pp-cli/0.1 (+https://github.com/mvanhorn/printing-press-library)"
+    },
+    {
+      "name": "Accept",
+      "value": "application/json"
+    }
+  ],
+  "tools": [
+    {
+      "name": "announcements_get",
+      "description": "This command gets an announcement, which is a file that conforms to the Announcement format. Optional: entityid, path, filepath (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getannouncement",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "announcements_get-info",
+      "description": "This command gets information about an announcement. Optional: entityid, path.",
+      "method": "GET",
+      "path": "/cmd?cmd=getannouncementinfo",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "announcements_get-list",
+      "description": "This command lists an entity's announcements. Optional: entityid, modifieddate.",
+      "method": "GET",
+      "path": "/cmd?cmd=getannouncementlist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "modifieddate",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "announcements_get-user-list",
+      "description": "This command lists course, section, and domain announcements for the current user. Optional: userid, daysactivepastend.",
+      "method": "GET",
+      "path": "/cmd?cmd=getuserannouncementlist",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "announcements_list-restorable",
+      "description": "This command lists domainor course announcements that have been deleted and can be restored. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorableannouncements",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "announcements_put",
+      "description": "This command posts an announcement to the domain or course specified by entityid . Optional: entityid, path.",
+      "method": "POST",
+      "path": "/cmd?cmd=putannouncement",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "announcements_restore",
+      "description": "This command restores one or more domain or course announcements. Optional: entityid, path, version.",
+      "method": "POST",
+      "path": "/cmd?cmd=restoreannouncements",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "announcements_update-viewed",
+      "description": "This command updates the viewed state of one or more domain announcements for the current signed-on user. Optional: entityid, path, version (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updateannouncementviewed",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "viewed",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-attempt",
+      "description": "This command returns the data needed for an assessment or homework attempt. Optional: enrollmentid, itemid, groupid (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getattempt",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "utcoffset",
+          "type": "int",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-attempt-file",
+      "description": "This command gets a uploaded file associated with a fileupload question. Optional: enrollmentid, itemid, partid (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getattemptfile",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inline",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-attempt-review",
+      "description": "This command returns the data needed to review an assessment or homework attempt. Optional: enrollmentid, itemid, groupid (plus 7 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getattemptreview",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "submissionversion",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "responseversion",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inline",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "forviewing",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-next-question",
+      "description": "Submits answers for the current question in an adpative assessment. Optional: enrollmentid, itemid, action (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=getnextquestion",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "location": "body"
+        },
+        {
+          "name": "seconds",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-question",
+      "description": "This command gets one question from a course. Optional: entityid, questionid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getquestion",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-question-scores",
+      "description": "This command scores one or more question submissions. Optional: type.",
+      "method": "POST",
+      "path": "/cmd?cmd=getquestionscores",
+      "params": [
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-question-stats",
+      "description": "This command gets system-wide statistics about a particular question. Optional: entityid, questionid, version.",
+      "method": "GET",
+      "path": "/cmd?cmd=getquestionstats",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_get-submission-state",
+      "description": "Retrieves state information for an enrollment's assessment or homework submission, including whether the enrollment can start, resume, or re. Optional: enrollmentid, itemid, utcoffset (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getsubmissionstate",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "utcoffset",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "createifempty",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_list-questions",
+      "description": "This command lists one or more questions in a course. Optional: entityid, questionid, query (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listquestions",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "allversions",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_list-restorable-questions",
+      "description": "This command lists questions that have been deleted and can be restored. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorablequestions",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "assessments_put-attempt-file",
+      "description": "This command puts files on the server to be associated with a fileupload question as part of a student assessment/homework attempt. Optional: enrollmentid, itemid, partid.",
+      "method": "POST",
+      "path": "/cmd?cmd=putattemptfile",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_put-questions",
+      "description": "This command puts (adds or updates) one or more questions in a course. Optional: entityid, questionid, schema (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putquestions",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "score",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "partial",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "round",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_restore-questions",
+      "description": "This command restores one or more questions in a course. Optional: entityid, questionid, version.",
+      "method": "POST",
+      "path": "/cmd?cmd=restorequestions",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "questionid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_save-attempt-answers",
+      "description": "Save answers for an assessment of homework group attempt for later use. Optional: enrollmentid, itemid, groupid (plus 5 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=saveattemptanswers",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "location": "body"
+        },
+        {
+          "name": "seconds",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "bookmark",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "clientdata",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "assessments_submit-attempt-answers",
+      "description": "Submits answers for an assessment of homework group attempt for grading. Optional: enrollmentid, itemid, groupid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=submitattemptanswers",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "location": "body"
+        },
+        {
+          "name": "seconds",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "partid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "badges_create",
+      "description": "This command creates a badge. Optional: entityid, imageentityid, imagepath (plus 6 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createbadge",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "imageentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "imagepath",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "requirements",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "origin",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "org",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "contact",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "badges_get",
+      "description": "This command gets the badge image. Optional: entityid, badgeid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getbadge",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "badgeid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "badges_get-assertion",
+      "description": "This command gets the assertion associated with a badge. Optional: entityid, badgeid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getbadgeassertion",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "badgeid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "badges_get-list",
+      "description": "This command gets a list of badges for a user. Optional: entityid, query.",
+      "method": "GET",
+      "path": "/cmd?cmd=getbadgelist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "blogs_get",
+      "description": "This command gets a blog or journal message, which conforms to the Message format. Optional: enrollmentid, itemid, messageid (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getblog",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "blogs_get-list",
+      "description": "This command returns a list of blog or journal messages for the specified enrollment and item, ordered by message creationdate . Optional: enrollmentid, itemid, parentid (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getbloglist",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "start",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "rows",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "tag",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "sort",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "blogs_get-recent-posts",
+      "description": "This command returns recent posts to discussion boards, wikis, blogs and journals that have not been marked as viewed. Optional: enrollmentid, date, rows (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getrecentposts",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "rows",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "manifestonly",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "blogs_get-summary",
+      "description": "This command returns a blog or journal summary for each enrollment in the specified entity. Optional: entityid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getblogsummary",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "blogs_put",
+      "description": "This command puts a blog or journal message to the server. Optional: enrollmentid, itemid, messageid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putblog",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "authorid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "blogs_update-viewed",
+      "description": "This command updates a user’s viewed state of one or more blog messages. Optional: enrollmentid, itemid, messageid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updateblogviewed",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "viewed",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "conversion_export-data",
+      "description": "This command convert structured post data to a tab or comma-delimited file. Optional: to, saveto, bom (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=exportdata",
+      "params": [
+        {
+          "name": "to",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "saveto",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "bom",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "spreadsheet",
+          "type": "bool",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "conversion_get-converted-data",
+      "description": "Retrieves the converted data generated from either ImportData or ExportData and deletes the temporary file. Optional: path, name.",
+      "method": "GET",
+      "path": "/cmd?cmd=getconverteddata",
+      "params": [
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "conversion_import-data",
+      "description": "This command imports and converts various data formats. Optional: from, saveto, responsetype (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=importdata",
+      "params": [
+        {
+          "name": "from",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "saveto",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "responsetype",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "filetype",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "maxsize",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "maxrows",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "courses_copy",
+      "description": "This command copies one or more courses. Optional: courseid, domainid, action (plus 11 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=copycourses",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "depth",
+          "type": "int",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "days",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "term",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "indexrule",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "courses_create",
+      "description": "This command creates one or more courses. Optional: title, domainid, schema (plus 9 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createcourses",
+      "params": [
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "days",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "term",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "indexrule",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "courses_create-demo",
+      "description": "This command creates a demo course. Optional: courseid, domainid, schema (plus 5 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createdemocourse",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "daysoffset",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourceid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "courses_deactivate",
+      "description": "This command deactivates a course. Optional: courseid.",
+      "method": "GET",
+      "path": "/cmd?cmd=deactivatecourse",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "courses_get",
+      "description": "This command gets information for a course. Optional: courseid, select, version.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcourse2",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "courses_list",
+      "description": "This command lists courses. Optional: domainid, includedescendantdomains, limit (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listcourses",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "show",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subscriptionmode",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subscriptiondomainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "courses_merge",
+      "description": "This command merges the deltas from a derivative course into its immediate base course. Optional: courseid.",
+      "method": "POST",
+      "path": "/cmd?cmd=mergecourses",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "courses_restore",
+      "description": "This command restores a deleted course. Optional: courseid.",
+      "method": "GET",
+      "path": "/cmd?cmd=restorecourse",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "courses_update",
+      "description": "This command updates the title, reference, data (free-form XML), and other attributes of one or more courses. Optional: courseid, domainid, title (plus 9 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatecourses",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "baseid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "days",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "term",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "indexrule",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "datastreams_get-data-stream-configuration",
+      "description": "This command gets the data stream configuration previously set using SetDataStreamConfiguration for a specified domain. Optional: domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdatastreamconfiguration",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "datastreams_set-data-stream-configuration",
+      "description": "This command tests a given data stream configuration to see if it is valid and if the API servers can connect to it and if successful, sets. Optional: domainid, test, title (plus 13 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=setdatastreamconfiguration",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "test",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enabled",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "targetFirehoseStream",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleArn",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "targetRegion",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "eventType",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "properties",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "targetKinesisStream",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "streamName",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "timeoutSeconds",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "retries",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "endpoints",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "httpMethod",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "targetSqsQueue",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "discussions_get-message",
+      "description": "This command returns a discussion forum message. Optional: entityid, itemid, messageid (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getmessage",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "discussions_get-message-list",
+      "description": "This command returns the messages associated with a discussion board of an entity. Optional: entityid, itemid, groupid (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getmessagelist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "discussions_list-restorable-messages",
+      "description": "This command lists messages that have been deleted from a entity and can be restored. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorablemessages",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "discussions_put-message",
+      "description": "This command puts a discussion board message to the server. Optional: entityid, itemid, groupid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putmessage",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "discussions_put-message-part",
+      "description": "This command puts individual parts of a discussion board message to the server. Optional: entityid, itemid, messageid (plus 4 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putmessagepart",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "disposition",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "discussions_restore-messages",
+      "description": "This command restores one or more messages in a discussion forum. Optional: entityid, itemid, messageid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=restoremessages",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "discussions_submit-message",
+      "description": "This command assembles changes from the PutMessagePart and DeleteMessagePart commands into a new message and posts the new message to the se. Optional: entityid, itemid, messageid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=submitmessage",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "discussions_update-message-viewed",
+      "description": "This command updates a user’s viewed state of one or more discussion board messages. Optional: entityid, itemid, messageid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatemessageviewed",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "messageid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "viewed",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "domains_create",
+      "description": "This command creates one or more domains and links them as children to the domain specified by parentid. Optional: name, userspace, parentid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createdomains",
+      "params": [
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "userspace",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "domains_get",
+      "description": "This command gets information for the specified domain. Optional: domainid, select.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomain2",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_get-content",
+      "description": "This command returns the list of content items for the current signed-on user’s domain.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomaincontent",
+      "params": []
+    },
+    {
+      "name": "domains_get-enrollment-metrics",
+      "description": "This command gets enrollment metrics for courses in the specified domain. Optional: domainid, skipempty.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainenrollmentmetrics",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "skipempty",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_get-enrollment-metrics-parameters",
+      "description": "This command gets parameters that affect calculations used in Enrollment Metrics , Course EnrollmentMetrics , and GetDomainEnrollmentMetrics. Optional: domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainenrollmentmetricsparameters",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_get-parent-list",
+      "description": "This command gets the list of parent domains for a domain. Optional: domainid, path, includesource.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainparentlist",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includesource",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_get-settings",
+      "description": "Retrieve domain-hierarchy-merged application settings (no auth required). Optional: domainid, path, includesource.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainsettings",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includesource",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_get-stats",
+      "description": "This command gets statistics for a domain. Optional: domainid, options, recurse.",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainstats",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "options",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "recurse",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_list",
+      "description": "This command lists domains. Optional: domainid, includedescendantdomains, limit (plus 5 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listdomains",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "show",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includemanageddomains",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_restore",
+      "description": "This command restores a deleted domain. Optional: domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=restoredomain",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "domains_update",
+      "description": "This command updates the name, reference value, flags, and free-forn structured data of one or more domains. Optional: domainid, name, parentid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatedomains",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_create",
+      "description": "This command enrolls a user with the specified rights in a course. Optional: disallowduplicates, disallowsamestatusduplicates, userid (plus 9 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createenrollments",
+      "params": [
+        {
+          "name": "disallowduplicates",
+          "type": "bool",
+          "location": "body"
+        },
+        {
+          "name": "disallowsamestatusduplicates",
+          "type": "bool",
+          "location": "body"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_get",
+      "description": "This command gets enrollment data for a particular enrollment. Optional: enrollmentid, select.",
+      "method": "GET",
+      "path": "/cmd?cmd=getenrollment3",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_get-activity",
+      "description": "This command gets the activity detail for the specified user enrollment. Optional: enrollmentid, itemid, startdate (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getenrollmentactivity",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "last",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "mergeoverlap",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_get-gradebook",
+      "description": "This command gets the gradebook detail, including rolled-up period, category, and course grades, for the specified user enrollment. Optional: enrollmentid, forcerequireditems, gradingschemeid (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getenrollmentgradebook2",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "forcerequireditems",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "gradingscheme",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scorm",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_get-group-list",
+      "description": "This command lists groups that the specified enrollment is a member of. Optional: enrollmentid, setid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getenrollmentgrouplist",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_get-metrics-report",
+      "description": "Returns report data for the enrollment metrics of a domain, teacher, or student. Optional: entityid, report, daysactivepastend (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getenrollmentmetricsreport",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "report",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "nodata",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "spreadsheet",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "utcoffset",
+          "type": "int",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_list",
+      "description": "This command lists enrollments. Optional: domainid, includedescendantdomains, limit (plus 9 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listenrollments",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "show",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "userdomainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "userquery",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "usertext",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "coursedomainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "coursequery",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "coursetext",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_list-by-teacher",
+      "description": "This command lists enrollments in courses where the specified user is a teacher. Optional: teacheruserid, teacherallstatus, teacherdaysactivepastend (plus 5 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listenrollmentsbyteacher",
+      "params": [
+        {
+          "name": "teacheruserid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "teacherallstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "teacherdaysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_list-entity",
+      "description": "This command lists enrollments in the specified entity. Optional: entityid, privileges, allstatus (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listentityenrollments",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_list-user",
+      "description": "This command lists enrollments for the specified user. Optional: userid, allstatus, entityid (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listuserenrollments",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_put-self-assessment",
+      "description": "This command puts self-assessment ratings of understanding, interest, and effort into the student's Enrollment Metrics . Optional: enrollmentid, understanding, interest (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=putselfassessment",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "understanding",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "interest",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "effort",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_restore",
+      "description": "This command restores a deleted enrollment. Optional: enrollmentid.",
+      "method": "POST",
+      "path": "/cmd?cmd=restoreenrollment",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "enrollments_update",
+      "description": "This command updates the enrollment status, start date, end date, and rights granted to the specified user for a course. Optional: enrollmentid, userid, entityid (plus 8 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updateenrollments",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_copy",
+      "description": "This command copies one or more resources from the domain or course specified by sourceentityid to the domain or course specified by destina. Optional: sourceentityid, sourcepath, destinationentityid (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=copyresources",
+      "params": [
+        {
+          "name": "sourceentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourcepath",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationpath",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_get",
+      "description": "This command gets resource metadata and/or binary content for the course, section, enrollment, user, or domain. Optional: entityid, path, version (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getresource",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "attachment",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "class",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_get-document",
+      "description": "This command retrieves a user document from the server. Optional: enrollmentid, itemid, path (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getdocument",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_get-document-info",
+      "description": "This command retrieves information about one or more user documents from the server. Optional: enrollmentid, itemid, path.",
+      "method": "POST",
+      "path": "/cmd?cmd=getdocumentinfo",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_get-entity-id",
+      "description": "This command gets the resource entity ID of the specified entity. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getentityresourceid",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_get-info",
+      "description": "This command gets information about a resource in the domain, course, section, or enrollment specified by entityid . Optional: entityid, path, class.",
+      "method": "POST",
+      "path": "/cmd?cmd=getresourceinfo2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "class",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_get-list",
+      "description": "This command lists metadata for entity (domain, course, or enrollment) resources. Optional: entityid, path, recurse (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getresourcelist2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "recurse",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allversions",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "entries",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "class",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_list-restorable",
+      "description": "This command lists resources that have been deleted and can be restored. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorableresources",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_list-restorable-documents",
+      "description": "This command lists documents that have been deleted and can be restored. Optional: enrollmentid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorabledocuments",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "files_put",
+      "description": "This command puts a resource to the server for the specified course, section, enrollment, user, or domain. Optional: entityid, path, status (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putresource",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "class",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "drophistory",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "contenttype",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_put-folders",
+      "description": "This command creates one or more resource folders for a domain or course. Optional: entityid, path.",
+      "method": "POST",
+      "path": "/cmd?cmd=putresourcefolders",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_restore",
+      "description": "This command restores one or more resources in a domain, course, or enrollment. Optional: entityid, path, version.",
+      "method": "POST",
+      "path": "/cmd?cmd=restoreresources",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "files_restore-documents",
+      "description": "This command restores one or more documents. Optional: enrollmentid, itemid, path (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=restoredocuments",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_calculate-enrollment-scenario",
+      "description": "This command calculates a rolled-up (category, period, and course) grade scenario for the specified user enrollment given the supplied input. Optional: enrollmentid, gradingschemeid, zerounscored (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=calculateenrollmentscenario",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "body"
+        },
+        {
+          "name": "achieved",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "possible",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-calendar",
+      "description": "Gets the iCalendar (RFC2445) file of events for the user or enrollments specified by token. Optional: token.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcalendar",
+      "params": [
+        {
+          "name": "token",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-calendar-items",
+      "description": "This command gets duedates and blackoutdates for the specified enrollments. Optional: userid, enrollmentid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcalendaritems",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-calendar-token",
+      "description": "Get a token to generate a URL that can retrieve the current user's calendar without any authentication. Optional: enrollment, appname.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcalendartoken",
+      "params": [
+        {
+          "name": "enrollment",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "appname",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-certificates",
+      "description": "This command gets the completion certificates associated with a course or section enrollment. Optional: enrollmentid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcertificates",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-due-soon-list",
+      "description": "This command gets list of items that will soon become due for a student. Optional: userid, enrollmentid, showcompleted (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getduesoonlist",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "showcompleted",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "showpastdue",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "days",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "utcoffset",
+          "type": "int",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-entity-summary",
+      "description": "This command gets grade summaries for students enrolled in the specified entity. Optional: entityid, allstatus, enrollmentids (plus 7 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitygradebooksummary",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentids",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "forcerequireditems",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "gradingscheme",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-entity-work",
+      "description": "Gets the list of items that have been graded or need grading in a course back to a specified date. Optional: entityid, date, outstanding (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitywork2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "outstanding",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "include",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-grade",
+      "description": "This command gets the grade detail for the specified user enrollment and item. Optional: enrollmentid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgrade",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-grade-history",
+      "description": "This command gets the history of grades for an item in the gradebook for the specified user enrollment. Optional: enrollmentid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgradehistory",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-item-analysis",
+      "description": "Some items compute their score from scores assigned within the item. Optional: entityid, itemid, groupid (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemanalysis2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "verbose",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "sources",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-item-report",
+      "description": "Some items compute their score from scores assigned within the item. Optional: entityid, itemid, groupid (plus 8 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemreport",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "report",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "spreadsheet",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-list",
+      "description": "This command lists entities (courses and sections) that have gradebooks. Optional: title, reference, domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgradebooklist",
+      "params": [
+        {
+          "name": "title",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-rubric-mastery",
+      "description": "This command gets report data that shows how students are performing for items related to the specified rubric. Optional: entityid, rubricentityid, rubricpath (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getrubricmastery",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "rubricentityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "rubricpath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-rubric-stats",
+      "description": "This command gets detailed information about responses and scores associated with the rules in a rubric. Optional: entityid, path, version (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getrubricstats",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "path",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "ruleid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-summary",
+      "description": "This command gets a summary of course participants that match the specified parameters. Optional: entityid, allstatus, itemid (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getgradebooksummary",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "verbose",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "calculated",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scorm",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "completed",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-user",
+      "description": "This command gets gradebook detail for the specified user. Optional: userid, allstatus, entityid (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getusergradebook2",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "forcerequireditems",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "gradingscheme",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scorm",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_get-weights",
+      "description": "This command gets the item and category gradebook weights for the specified entity, optionally filtered by a specific grading period. Optional: entityid, periodid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgradebookweights",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "periodid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_getentitygradebook2",
+      "description": "This command gets grades for all students enrolled in the specified entity. Optional: entityid, allstatus, forcerequireditems (plus 8 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitygradebook2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "forcerequireditems",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "daysactivepastend",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "gradingscheme",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scorm",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "gradebook_getentitygradebook3",
+      "description": "This command gets grades for students enrolled in the specified entity. Optional: entityid, allstatus, enrollmentids (plus 8 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitygradebook3",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentids",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "forcerequireditems",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "gradingschemeid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "gradingscheme",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scorm",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "groups_add-members",
+      "description": "This command adds one or more member enrollments to an existing group. Optional: groupid, enrollmentid.",
+      "method": "POST",
+      "path": "/cmd?cmd=addgroupmembers",
+      "params": [
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "groups_create",
+      "description": "This command creates one or more groups in the specified owner course. Optional: domainid, ownerid, reference (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=creategroups",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ownerid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "groups_get",
+      "description": "This command gets information for a particular group. Optional: groupid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgroup",
+      "params": [
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "groups_get-enrollment-list",
+      "description": "This command lists enrollments for the specified group. Optional: groupid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getgroupenrollmentlist",
+      "params": [
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "groups_get-list",
+      "description": "This command lists groups in the specified owner entity (course). Optional: ownerid, includeenrollments, select (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getgrouplist",
+      "params": [
+        {
+          "name": "ownerid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includeenrollments",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "groups_remove-members",
+      "description": "This command removes one or more member enrollments from an existing group. Optional: groupid, enrollmentid.",
+      "method": "POST",
+      "path": "/cmd?cmd=removegroupmembers",
+      "params": [
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "groups_update",
+      "description": "This command updates the title, set ID, reference, and data of one or more groups. Optional: groupid, title, reference (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updategroups",
+      "params": [
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_assign",
+      "description": "Assigning an item to a folder changes the item’s parent and sequence to the specified values. Optional: entityid, itemid, folderid (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=assignitem",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "folderid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sequence",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_copy",
+      "description": "This command copies one or more items from one course to another. Optional: sourceentityid, sourceitemid, destinationentityid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=copyitems",
+      "params": [
+        {
+          "name": "sourceentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourceitemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationitemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "deep",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_find-personalized-entities",
+      "description": "This command finds the course, enrollment, and group entities that contain items which have been personalized in the way specified by the qu. Optional: courseid, query, itemid (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=findpersonalizedentities",
+      "params": [
+        {
+          "name": "courseid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includegroups",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_get-data",
+      "description": "This command gets the manifest data (see Course Data ) for the specified entity (course, section, group, or enrollment) except for the \u003citem. Optional: entityid, cached.",
+      "method": "GET",
+      "path": "/cmd?cmd=getmanifestdata",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "cached",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_get-links",
+      "description": "This command gets a list of manifest items that link to the specified item through course or item chaining. Optional: entityid, itemid, derivatives (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemlinks",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "derivatives",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "links",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "recurse",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_get-list",
+      "description": "This command lists items. Optional: entityid, itemid, query (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemlist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allversions",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_getitem",
+      "description": "This command gets a manifest item. Optional: entityid, itemid, version (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getitem",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "embedmaster",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_getiteminfo",
+      "description": "This command gets information about an item in the course, section or group specified by entityid . Optional: entityid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=getiteminfo",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_getmanifest",
+      "description": "This command gets the manifest for the specified entity (course, section, group, or enrollment). Optional: entityid, cached.",
+      "method": "GET",
+      "path": "/cmd?cmd=getmanifest",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "cached",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_getmanifestinfo",
+      "description": "This command gets information about the manifest of one or more courses or sections. Optional: entityid.",
+      "method": "POST",
+      "path": "/cmd?cmd=getmanifestinfo",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_getmanifestitem",
+      "description": "This command gets an item and optionally some of its descendents from the manifest of a course or section. Optional: entityid, itemid, generations.",
+      "method": "GET",
+      "path": "/cmd?cmd=getmanifestitem",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "generations",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_list-assignable",
+      "description": "ListAssignableItems uses the assignableitemsquery attribute on the folderid item to list items in the course that may be assigned to folderi. Optional: entityid, folderid, showassigned.",
+      "method": "GET",
+      "path": "/cmd?cmd=listassignableitems",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "folderid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "showassigned",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_list-restorable",
+      "description": "This command lists items that have been deleted and can be restored. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorableitems",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_navigate",
+      "description": "This command attempts to navigate a user's enrollment to a course item. Optional: enrollmentid, itemid, password (plus 14 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=navigateitem",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "utcoffset",
+          "type": "int",
+          "location": "body"
+        },
+        {
+          "name": "ltidr",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltilc",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltilh",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltill",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltilr",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltilt",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltilw",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltioe",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltitc",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltitg",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltitn",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltitu",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "ltitv",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_put",
+      "description": "This command puts one or more items in a manifest. Optional: entityid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=putitems",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_restore",
+      "description": "This command restores one or more items in a manifest. Optional: entityid, itemid, version.",
+      "method": "POST",
+      "path": "/cmd?cmd=restoreitems",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_search",
+      "description": "This command searches course content that has been marked by course creators as searchable and returns a paginated list of results. Optional: entityid, omitentityid, itemtype (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=search2",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "omitentityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemtype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subscriptions",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "start",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "items_unassign",
+      "description": "Unassigning an item changes the item’s parent and sequence to their default values (the values they would have if they had never been assign. Optional: entityid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=unassignitem",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "items_update-data",
+      "description": "This command updates the manifest data (see Course Data ) on the specified entity (course or section.) Only the elements specified in the PO. Optional: entityid.",
+      "method": "POST",
+      "path": "/cmd?cmd=updatemanifestdata",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "objectives_create-sets",
+      "description": "This command creates one or more objective sets or objective map sets, which are containers for either objectives or objective maps, respect. Optional: name, domainid, reference (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createobjectivesets",
+      "params": [
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-list",
+      "description": "This command gets a list of learning objectives. Optional: setid, guid, parent (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getobjectivelist",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "grades",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-map-list",
+      "description": "This command gets the list of maps defined in an objective map set. Optional: setid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getobjectivemaplist",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-mastery",
+      "description": "This command gets objective mastery report data for the specified entity using student scores from objective-aligned items and questions. Optional: entityid, setid, guid (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getobjectivemastery",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "mappedonly",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-mastery-detail",
+      "description": "This command summarizes a single learning objective's mastery for each enrollment in the specified entities. Optional: entityid, guid, allstatus (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getmasterydetail",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-mastery-summary",
+      "description": "This command lists learning objectives and summarizes their mastery for enrollments in the specified entities. Optional: entityid, allstatus, setid (plus 7 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getmasterysummary",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allstatus",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "mapsetid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "grades",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "filterbycourseobjectives",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-set",
+      "description": "This command gets information for a objective set or objective map set. Optional: setid, select.",
+      "method": "GET",
+      "path": "/cmd?cmd=getobjectiveset2",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_get-subject-list",
+      "description": "This command gets the list of subjects covered by the learning objectives for an objective set. Optional: setid, guid, parent (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getobjectivesubjectlist",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "grades",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_list-sets",
+      "description": "This command gets a list of objective sets or objective map sets. Optional: domainid, includedescendantdomains, limit (plus 6 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listobjectivesets",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "show",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "map",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inherit",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_put",
+      "description": "This creates or updates one or more learning objectives and puts them in an objective set. Optional: guid, id, title (plus 5 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putobjectives",
+      "params": [
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "grades",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "parent",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "objectives_put-maps",
+      "description": "This command creates or updates one or more objective maps and puts them into an objective map set. Optional: setid, guid, correlation (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putobjectivemaps",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "guid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "correlation",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "weight",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "objectives_restore-set",
+      "description": "This command restores a deleted objective set. Optional: setid.",
+      "method": "GET",
+      "path": "/cmd?cmd=restoreobjectiveset",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "objectives_update-sets",
+      "description": "This command updates the name, reference, and other attributes of one or more objective sets or objective map sets. Optional: setid, name, domainid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updateobjectivesets",
+      "params": [
+        {
+          "name": "setid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "owner",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "peergrading_get-response",
+      "description": "This command gets a peer's response to a student's submission. Optional: enrollmentid, filepath, itemid (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getpeerresponse",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "peerid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "peergrading_get-response-info",
+      "description": "This command retrieves information about peer responses from the server. Optional: enrollmentid, itemid, peerid.",
+      "method": "POST",
+      "path": "/cmd?cmd=getpeerresponseinfo",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "peerid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "peergrading_get-response-list",
+      "description": "This command lists peer's responses to the specified student's submission to a course item. Optional: enrollmentid, itemid, select.",
+      "method": "POST",
+      "path": "/cmd?cmd=getpeerresponselist",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "peergrading_get-review-list",
+      "description": "This command lists peers that may be reviewed by the specified enrollment user. Optional: peerid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getpeerreviewlist",
+      "params": [
+        {
+          "name": "peerid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "peergrading_put-response",
+      "description": "This command puts peer response data including comments, rubric score, and likert responses to the server. Optional: enrollmentid, itemid, peerid.",
+      "method": "POST",
+      "path": "/cmd?cmd=putpeerresponse",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "peerid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "ratings_get-item",
+      "description": "This command gets a user rating on a manifest item. Optional: entityid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemrating",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "ratings_get-item-summary",
+      "description": "This command gets the summary of user ratings on a manifest item. Optional: entityid, itemid, flags.",
+      "method": "GET",
+      "path": "/cmd?cmd=getitemratingsummary",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "ratings_put-item",
+      "description": "This command puts a user rating on a manifest item. Optional: entityid, itemid, rating.",
+      "method": "GET",
+      "path": "/cmd?cmd=putitemrating",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "rating",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "reports_get-info",
+      "description": "This command lists the information about a report including the parameters required to run it. Optional: reportid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getreportinfo",
+      "params": [
+        {
+          "name": "reportid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "reports_get-list",
+      "description": "This command lists all reports defined on a domain. Optional: domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getreportlist",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "reports_get-runnable-list",
+      "description": "This command lists all reports available to the currently logged-on user. Optional: entityid, domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getrunnablereportlist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "reports_run",
+      "description": "This command runs the specified report. Optional: reportid, entityid, format (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=runreport",
+      "params": [
+        {
+          "name": "reportid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "nodata",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "spreadsheet",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_create-role",
+      "description": "This command creates a role on a given domain. Optional: domainid, name, privileges (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createrole",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entitytype",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "rights_get",
+      "description": "This command gets the rights granted to the specified actor (user or role) for the specified entity (domain, course, or section). Optional: actorid, entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getrights",
+      "params": [
+        {
+          "name": "actorid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-actor",
+      "description": "This command lists entities that an actor (user) has rights for. Optional: actorid, entitytypes.",
+      "method": "GET",
+      "path": "/cmd?cmd=getactorrights",
+      "params": [
+        {
+          "name": "actorid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "entitytypes",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-effective",
+      "description": "This command gets the effective rights granted to the current user for the specified entity (domain, course, or section). Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=geteffectiverights",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-effective-subscription-list",
+      "description": "This command lists effective subscriptions for the current signed-in user, including those inherited from the user's domain, and excluding a. Optional: select.",
+      "method": "GET",
+      "path": "/cmd?cmd=geteffectivesubscriptionlist",
+      "params": [
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-entity",
+      "description": "This command lists users and the rights granted to those users for the specified entity (domain, course, section, enrollment or user.). Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getentityrights",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-entity-subscription-list",
+      "description": "This command lists subscriptions to the specified entity (course or domain). Optional: entityid, subscriberid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitysubscriptionlist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "subscriberid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-list",
+      "description": "This command lists rights granted to users on entities (domains, users, and enrollments). Optional: domainid, restrictdomain.",
+      "method": "GET",
+      "path": "/cmd?cmd=getrightslist",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "restrictdomain",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-personas",
+      "description": "This command gets the list of personas associated with a user. Optional: userid, domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getpersonas",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-role",
+      "description": "This command gets information for a role. Optional: roleid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getrole",
+      "params": [
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_get-subscription-list",
+      "description": "This command lists subscriptions explicitly assigned to the specified subscriber (user or domain). Optional: subscriberid, entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getsubscriptionlist",
+      "params": [
+        {
+          "name": "subscriberid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_list-roles",
+      "description": "This command lists roles defined for a domain. Optional: domainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listroles",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_restore-role",
+      "description": "This command restores a role that has been previously deleted. Optional: roleid.",
+      "method": "GET",
+      "path": "/cmd?cmd=restorerole",
+      "params": [
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "rights_update",
+      "description": "This command updates the rights (flags) granted to the specified user (actorid) for the domain or enrollment specified by entityid. Optional: actorid, entityid, roleid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updaterights",
+      "params": [
+        {
+          "name": "actorid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "schema",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "rights_update-role",
+      "description": "This command updates the name, domainid, reference, or privileges for a role. Optional: roleid, name, domainid (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updaterole",
+      "params": [
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "privileges",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entitytype",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "rights_update-subscriptions",
+      "description": "This command creates or updates the subscription for the specified subscriber. Optional: subscriberid, entityid, startdate (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatesubscriptions",
+      "params": [
+        {
+          "name": "subscriberid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "subscriptionflags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_clear-second-factor-authentication",
+      "description": "Clears 2FA (second factor authentication) settings for the specified user account, allowing the user to login without 2FA (the user will hav. Optional: userid.",
+      "method": "POST",
+      "path": "/cmd?cmd=clearsecondfactorauthentication",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_create-second-factor-authentication-secret",
+      "description": "This command creates an RFC 6238 second factor authentication secret for use with 2FA authentication. Optional: encryption.",
+      "method": "GET",
+      "path": "/cmd?cmd=createsecondfactorauthenticationsecret",
+      "params": [
+        {
+          "name": "encryption",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "session_extend-session",
+      "description": "Each API command automatically refreshes the authorization token, extending the expiration for the duration originally specified at login, b.",
+      "method": "POST",
+      "path": "/cmd?cmd=extendsession",
+      "params": []
+    },
+    {
+      "name": "session_finish-password-reset",
+      "description": "This command updates the password of the specified user. Optional: token, password.",
+      "method": "POST",
+      "path": "/cmd?cmd=finishpasswordreset",
+      "params": [
+        {
+          "name": "token",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_force-password-change",
+      "description": "Forces a user to change their password the next time they login, exactly as if their password had expired. Optional: userid.",
+      "method": "POST",
+      "path": "/cmd?cmd=forcepasswordchange",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_get-key",
+      "description": "This command retrieves a name/value pair from an entity. Optional: entityid, name.",
+      "method": "GET",
+      "path": "/cmd?cmd=getkey",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "session_get-password-login-attempt-history",
+      "description": "Gets the record of password login attempts for the specified user account. Optional: userid, earliestrecordtoreturn.",
+      "method": "GET",
+      "path": "/cmd?cmd=getpasswordloginattempthistory",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "earliestrecordtoreturn",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "session_get-password-question",
+      "description": "This command gets the question to ask a user who has forgotten their password. Optional: username.",
+      "method": "GET",
+      "path": "/cmd?cmd=getpasswordquestion",
+      "params": [
+        {
+          "name": "username",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "session_login",
+      "description": "For server-side API integrations, OAuth 2.0 Application Identity is now available as an alternative authentication mechanism. Optional: username, password, expireseconds (plus 3 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=login3",
+      "params": [
+        {
+          "name": "username",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "expireseconds",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "newsession",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "remembermfa",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_logout",
+      "description": "This command terminates the session state for an authenticated user. Optional: reusable, clearallbrowserdata.",
+      "method": "POST",
+      "path": "/cmd?cmd=logout",
+      "params": [
+        {
+          "name": "reusable",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "clearallbrowserdata",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_proxy",
+      "description": "This command starts a session as a different user. Optional: userid, noazt.",
+      "method": "POST",
+      "path": "/cmd?cmd=proxy",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "noazt",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_put-key",
+      "description": "This command stores a name/value pair on an entity. Optional: entityid, name, value.",
+      "method": "GET",
+      "path": "/cmd?cmd=putkey",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "session_reset-lockout",
+      "description": "This command resets an account that has been locked out due to too many contiguous password failures. Optional: userid.",
+      "method": "POST",
+      "path": "/cmd?cmd=resetlockout",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_reset-password",
+      "description": "This command sends an email to the specified user with a time-limited link that can be used to reset their password. Optional: username, firstname, lastname (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=resetpassword",
+      "params": [
+        {
+          "name": "username",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "firstname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "lastname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "answer",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_second-factor-authenticate",
+      "description": "This command completes the two factor part of authentication for users who have opted for two factor authentication. Optional: otp, rememberdevice.",
+      "method": "POST",
+      "path": "/cmd?cmd=secondfactorauthenticate",
+      "params": [
+        {
+          "name": "otp",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "rememberdevice",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_setup-second-factor-authentication",
+      "description": "Turns on second factor authentication for an account. Optional: delivery, encryption, secret (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=setupsecondfactorauthentication",
+      "params": [
+        {
+          "name": "delivery",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "encryption",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "secret",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "otp1",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "otp2",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_unproxy",
+      "description": "This command ends a proxy session. Optional: noazt.",
+      "method": "POST",
+      "path": "/cmd?cmd=unproxy",
+      "params": [
+        {
+          "name": "noazt",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_update-password",
+      "description": "This command updates the password of the specified user. Optional: userid, token, password (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatepassword",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "oldpassword",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "session_update-password-question-answer",
+      "description": "This command updates the password question and answer for the specified user. Optional: userid, passwordquestion, passwordanswer (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatepasswordquestionanswer",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "passwordquestion",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "passwordanswer",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "oldpassword",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-sco-data",
+      "description": "This command gets a user's SCORM data for a SCO activity from the server. Optional: enrollmentid, itemid, review (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getscodata",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "review",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "submittedversion",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-student",
+      "description": "This command gets a student's submission. Optional: enrollmentid, filepath, inline (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getstudentsubmission",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inline",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-student-history",
+      "description": "This command gets the history of submissions for an item in the gradebook for the specified user enrollment. Optional: enrollmentid, itemid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getstudentsubmissionhistory",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-student-info",
+      "description": "This command retrieves information about one or more student submissions from the server. Optional: enrollmentid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=getstudentsubmissioninfo",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-teacher-response",
+      "description": "This command gets a teacher's response to a student's submission. Optional: enrollmentid, filepath, inline (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getteacherresponse",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inline",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-teacher-response-info",
+      "description": "This command retrieves information about teacher responses from the server. Optional: enrollmentid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=getteacherresponseinfo",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_get-work-in-progress",
+      "description": "This command gets a work-in-progress file. Optional: enrollmentid, filepath, inline (plus 3 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getworkinprogress2",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "inline",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "packagetype",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-item-activity",
+      "description": "This command reports per-item student time spent to the server. Optional: enrollmentid, itemid, newattempt (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putitemactivity",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "newattempt",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "seconds",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-sco-data",
+      "description": "This command puts a user's SCORM data for a SCO activity to the server. Optional: enrollmentid, itemid, name (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putscodata",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-student",
+      "description": "This command puts a student submission for an activity to the server. Optional: enrollmentid, itemid, recordactivity.",
+      "method": "POST",
+      "path": "/cmd?cmd=putstudentsubmission",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "recordactivity",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-teacher-response",
+      "description": "This command puts teacher response data including scores, comments, and grade status flags to the server. Optional: enrollmentid, itemid, zerounscored.",
+      "method": "POST",
+      "path": "/cmd?cmd=putteacherresponse",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-teacher-responses",
+      "description": "This command puts one or more teacher responses including scores and grade status flags to the server. Optional: enrollmentid, itemid, scoredversion (plus 8 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putteacherresponses",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "scoredversion",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "mask",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "pointsassigned",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "pointscomputed",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "pointspossible",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "letter",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "submitteddate",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "zerounscored",
+          "type": "bool",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_put-work-in-progress",
+      "description": "This command puts a work-in-progress file on the server in preparation for a student submission. Optional: enrollmentid, itemid, filepath (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putworkinprogress",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "filepath",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "disposition",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "keephistory",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "submissions_submit-work-in-progress",
+      "description": "This command submits work-in-progress files on the server as a completed submission for the student. Optional: enrollmentid, itemid.",
+      "method": "POST",
+      "path": "/cmd?cmd=submitworkinprogress",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "system_get-command-list",
+      "description": "This returns a complete list of all commands available on the API Server.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcommandlist",
+      "params": []
+    },
+    {
+      "name": "system_get-entity-type",
+      "description": "This command gets the entity type (Course, Domain, Group, or Section) for a given entity ID. Optional: entityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getentitytype",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "system_get-status",
+      "description": "The API servers do fairly extensive self-testing for all subsystems. Optional: rating, sms, html.",
+      "method": "GET",
+      "path": "/cmd?cmd=getstatus",
+      "params": [
+        {
+          "name": "rating",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "sms",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "html",
+          "type": "bool",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "system_send-mail",
+      "description": "This command sends an e-mail to recipients that are enrolled in the same entity as that specified by the sender's enrollmentid . Optional: enrollmentid.",
+      "method": "POST",
+      "path": "/cmd?cmd=sendmail",
+      "params": [
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "tokens_create-command",
+      "description": "This command creates one or more command tokens. Optional: scopeentityid, description, runasuserid (plus 8 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createcommandtokens",
+      "params": [
+        {
+          "name": "scopeentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "runasuserid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "allowunauthenticatedredemption",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "totalusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "userusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "peruserusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "perusercodes",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "codelength",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startvalidity",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "endvalidity",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "tokens_get-command",
+      "description": "This command gets details about a previously created command token. Optional: commandtokenid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcommandtoken",
+      "params": [
+        {
+          "name": "commandtokenid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "tokens_get-command-info",
+      "description": "This command gets the description and other non-sensitive info about a previously created command token from the code. Optional: code, scopedomainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=getcommandtokeninfo",
+      "params": [
+        {
+          "name": "code",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scopedomainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "tokens_list-command",
+      "description": "This command lists all the command tokens created by a particular user and associated with a specified domain, course, group, or user. Optional: onlyvalid, runasuserid, scopeentityid.",
+      "method": "GET",
+      "path": "/cmd?cmd=listcommandtokens",
+      "params": [
+        {
+          "name": "onlyvalid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "runasuserid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scopeentityid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "tokens_redeem-command",
+      "description": "This command redeems a command token using the code given to the currently authenticated user by the creator. Optional: code, commandtokenid, scopedomainid.",
+      "method": "GET",
+      "path": "/cmd?cmd=redeemcommandtoken",
+      "params": [
+        {
+          "name": "code",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "commandtokenid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "scopedomainid",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "tokens_update-command",
+      "description": "This command updates one or more existing command tokens, regenerating codes if the desired length or per-user settings change. Optional: commandtokenid, scopeentityid, description (plus 9 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updatecommandtokens",
+      "params": [
+        {
+          "name": "commandtokenid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "scopeentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "runasuserid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "allowunauthenticatedredemption",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "totalusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "userusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "peruserusecountlimit",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "perusercodes",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "codelength",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "startvalidity",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "endvalidity",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "users_create",
+      "description": "This command creates one or more users. Optional: forcepasswordchange, type, username (plus 11 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=createusers2",
+      "params": [
+        {
+          "name": "forcepasswordchange",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "passwordquestion",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "passwordanswer",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "firstname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "lastname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "rights",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "roleid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "users_get",
+      "description": "This command gets information for a particular user. Optional: userid, select.",
+      "method": "GET",
+      "path": "/cmd?cmd=getuser2",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_get-active-count",
+      "description": "Gets the number of active users either currently or for the given date range. Optional: domainid, includedescendantdomains, persona (plus 5 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getactiveusercount",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "persona",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "byday",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "bymonth",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "byyear",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_get-activity",
+      "description": "This command lists the login activity for a user. Optional: userid, startdate, enddate.",
+      "method": "GET",
+      "path": "/cmd?cmd=getuseractivity",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_get-activity-stream",
+      "description": "This command lists activities in a user's activity stream. Optional: userid, enrollmentid, startkey (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getuseractivitystream",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enrollmentid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startkey",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "types",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_get-domain-activity",
+      "description": "This command lists activity for all users in a specified domain. Optional: domainid, startdate, enddate (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getdomainactivity",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "startdate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "enddate",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "maxusers",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_get-profile-picture",
+      "description": "This command gets binary content for the user's profile picture if it exists. Optional: entityid, usedefault.",
+      "method": "GET",
+      "path": "/cmd?cmd=getprofilepicture",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "usedefault",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_list",
+      "description": "This command lists users. Optional: domainid, includedescendantdomains, limit (plus 4 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listusers",
+      "params": [
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "includedescendantdomains",
+          "type": "bool",
+          "location": "query"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "location": "query"
+        },
+        {
+          "name": "show",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "select",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "users_restore",
+      "description": "This command restores a deleted user. Optional: userid.",
+      "method": "POST",
+      "path": "/cmd?cmd=restoreuser",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "users_update",
+      "description": "This command updates the first name, last name, reference field, e-mail address, and flags for one or more users. Optional: userid, domainid, username (plus 5 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=updateusers",
+      "params": [
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "domainid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "firstname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "lastname",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "reference",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "flags",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "users_verify-email",
+      "description": "This command verifies a messaging account associated with a user. Optional: type, code, userid.",
+      "method": "POST",
+      "path": "/cmd?cmd=verifyuseremail",
+      "params": [
+        {
+          "name": "type",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "userid",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "wikis_copy-pages",
+      "description": "This command copies one or more wiki pages from the specified source course, item and group to the specified destination course, item and gr. Optional: sourceentityid, sourceitemid, sourcegroupid (plus 5 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=copywikipages",
+      "params": [
+        {
+          "name": "sourceentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourceitemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourcegroupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "sourceslug",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationentityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationitemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationgroupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "destinationslug",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "wikis_get-page-list",
+      "description": "This command lists metadata for wiki pages. Optional: entityid, itemid, groupid (plus 2 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=getwikipagelist",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "allversions",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "wikis_list-restorable-pages",
+      "description": "This command lists wiki pages that have been deleted from a course or section and can be restored. Optional: entityid, itemid, groupid (plus 1 more).",
+      "method": "GET",
+      "path": "/cmd?cmd=listrestorablewikipages",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "query"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "location": "query"
+        }
+      ]
+    },
+    {
+      "name": "wikis_put-page",
+      "description": "This command puts a wiki page to the server. Optional: entityid, itemid, groupid (plus 1 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=putwikipage",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "wikis_restore-pages",
+      "description": "This command restores one or more wiki pages in a course or section. Optional: entityid, groupid, itemid (plus 2 more).",
+      "method": "POST",
+      "path": "/cmd?cmd=restorewikipages",
+      "params": [
+        {
+          "name": "entityid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "groupid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "itemid",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    },
+    {
+      "name": "wikis_update-page-viewed",
+      "description": "This command updates a user’s viewed state of one or more wiki pages. Optional: username, password, token.",
+      "method": "POST",
+      "path": "/cmd?cmd=updatewikipageviewed",
+      "params": [
+        {
+          "name": "username",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "password",
+          "type": "string",
+          "location": "body"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "location": "body"
+        }
+      ]
+    }
+  ]
+}
