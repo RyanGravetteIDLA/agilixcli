@@ -1,0 +1,61 @@
+{
+  "requests": {
+    "item": [
+      {"entityid":"267910529","itemid":"kc2","data":{
+        "title":{"$value":"Knowledge Check 2: Super Admin Recovery"},
+        "parent":{"$value":"mod2"},"sequence":{"$value":"d"},
+        "type":{"$value":"Assessment"},"attemptlimit":{"$value":0},"weight":{"$value":0},
+        "questions":{"question":[
+          {"id":"q_kc2_1","type":1,"score":1},{"id":"q_kc2_2","type":1,"score":1},
+          {"id":"q_kc2_3","type":1,"score":1},{"id":"q_kc2_4","type":1,"score":1},
+          {"id":"q_kc2_5","type":1,"score":1}
+        ]}
+      }},
+      {"entityid":"267910529","itemid":"kc3","data":{
+        "title":{"$value":"Knowledge Check 3: Admin-Assisted User Recovery"},
+        "parent":{"$value":"mod3"},"sequence":{"$value":"e"},
+        "type":{"$value":"Assessment"},"attemptlimit":{"$value":0},"weight":{"$value":0},
+        "questions":{"question":[
+          {"id":"q_kc3_1","type":1,"score":1},{"id":"q_kc3_2","type":1,"score":1},
+          {"id":"q_kc3_3","type":1,"score":1},{"id":"q_kc3_4","type":1,"score":1},
+          {"id":"q_kc3_5","type":1,"score":1},{"id":"q_kc3_6","type":1,"score":1}
+        ]}
+      }},
+      {"entityid":"267910529","itemid":"kc4","data":{
+        "title":{"$value":"Knowledge Check 4: 2SV, Passkeys & Policy"},
+        "parent":{"$value":"mod4"},"sequence":{"$value":"e"},
+        "type":{"$value":"Assessment"},"attemptlimit":{"$value":0},"weight":{"$value":0},
+        "questions":{"question":[
+          {"id":"q_kc4_1","type":1,"score":1},{"id":"q_kc4_2","type":1,"score":1},
+          {"id":"q_kc4_3","type":1,"score":1},{"id":"q_kc4_4","type":1,"score":1},
+          {"id":"q_kc4_5","type":1,"score":1},{"id":"q_kc4_6","type":1,"score":1}
+        ]}
+      }},
+      {"entityid":"267910529","itemid":"kc5","data":{
+        "title":{"$value":"Knowledge Check 5: Governance & Incident Response"},
+        "parent":{"$value":"mod5"},"sequence":{"$value":"d"},
+        "type":{"$value":"Assessment"},"attemptlimit":{"$value":0},"weight":{"$value":0},
+        "questions":{"question":[
+          {"id":"q_kc5_1","type":1,"score":1},{"id":"q_kc5_2","type":1,"score":1},
+          {"id":"q_kc5_3","type":1,"score":1},{"id":"q_kc5_4","type":1,"score":1},
+          {"id":"q_kc5_5","type":1,"score":1},{"id":"q_kc5_6","type":1,"score":1}
+        ]}
+      }},
+      {"entityid":"267910529","itemid":"final","data":{
+        "title":{"$value":"Final Assessment: Account Recovery Scenarios"},
+        "parent":{"$value":"DEFAULT"},"sequence":{"$value":"f"},
+        "type":{"$value":"Assessment"},"attemptlimit":{"$value":2},
+        "category":{"$value":1},"weight":{"$value":100},
+        "questions":{"question":[
+          {"id":"q_final_1","type":1,"score":1},{"id":"q_final_2","type":1,"score":1},
+          {"id":"q_final_3","type":1,"score":1},{"id":"q_final_4","type":1,"score":1},
+          {"id":"q_final_5","type":1,"score":1},{"id":"q_final_6","type":1,"score":1},
+          {"id":"q_final_7","type":1,"score":1},{"id":"q_final_8","type":1,"score":1},
+          {"id":"q_final_9","type":1,"score":1},
+          {"id":"q_final_10","type":1,"score":2},{"id":"q_final_11","type":1,"score":2},
+          {"id":"q_final_12","type":1,"score":2}
+        ]}
+      }}
+    ]
+  }
+}

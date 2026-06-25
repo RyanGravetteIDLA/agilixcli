@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suspend / Reactivate &amp; the Self-Recovery Toggle</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 3 · Admin-Assisted User Recovery</div>
+<h1>Suspend / Reactivate &amp; the Self-Recovery Toggle</h1>
+<p class="lead">Reactivating a suspended account is a two-click job &mdash; unless Google suspended it. And the one self-service password toggle you'll be asked about is largely off-limits for K-12 students.</p>
+
+<h2>Reactivate a suspended user</h2>
+<ol class="steps">
+  <li>Go to <span class="path">Directory &rarr; Users</span> and filter <strong>User status = Suspended</strong>.</li>
+  <li>On the user's row, click <strong>More options &rarr; Reactivate</strong>.</li>
+  <li>Confirm.</li>
+</ol>
+<p>For many accounts at once, reactivate in bulk via CSV upload (set <strong>New Status = Active</strong>) or through the Admin SDK Directory API.</p>
+
+<div class="callout danger"><span class="label">Hard constraint</span>&ldquo;You can't restore an account that was suspended for abuse or for breaching the Google Workspace or Cloud Identity Terms of Service.&rdquo; Those Google-initiated suspensions can only be lifted by Google Support &mdash; the Reactivate button won't help.</div>
+
+<h2>The user self-recovery toggle</h2>
+<p>The setting <strong>&ldquo;Allow users and non-super admins to recover their account&rdquo;</strong> lives at <span class="path">Security &rarr; Authentication &rarr; Account recovery</span>.</p>
+<ul>
+  <li><strong>When ON</strong> &mdash; non-admin users can reset their own password using a recovery phone or email they previously configured. Note: users with 2SV enabled can only use a recovery <strong>email</strong>, not a phone.</li>
+  <li><strong>When OFF</strong> &mdash; users must contact an admin to recover access.</li>
+</ul>
+<p>This toggle is incompatible with third-party SSO and Password Sync &mdash; in those environments account recovery happens in your IdP, not Google.</p>
+
+<div class="callout danger"><span class="label">K-12 critical</span>The self-recovery setting is &ldquo;unavailable for Google Workspace for Education users under the age of 18.&rdquo; Super admins can enable it for higher-education accounts and other admin users, but for most K-12 <strong>student</strong> populations self-recovery is simply not available. Student password resets route through the admin &mdash; back to L3.1. This is the single most important point of this module for a K-12 director.</div>
+
+<h2>What is NOT a recovery action</h2>
+<p>Changing a user's name or moving them to a different OU does not delete the account and needs no &ldquo;recovery.&rdquo; These are routine edits &mdash; don't confuse them with deletion or suspension workflows.</p>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Confirm the exact setting name and location under <span class="path">Security &rarr; Authentication &rarr; Account recovery</span>, and the <strong>Reactivate</strong> action on a suspended user's row &mdash; Google's labels and the under-18 availability rules drift. The password-recovery article now lives at <span class="path">knowledge.workspace.google.com/admin/&hellip;</span> (old <span class="path">support.google.com/a/&hellip;</span> links redirect).</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>Reactivation is easy for admin-initiated suspensions and impossible (without Google Support) for abuse/ToS suspensions. And don't build a student-facing self-service password plan around the recovery toggle &mdash; it's blocked for under-18 Education users, so your students' resets stay an admin responsibility.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+<a href="https://knowledge.workspace.google.com/admin/users/set-up-password-recovery-for-users">Set up password recovery for users &mdash; https://knowledge.workspace.google.com/admin/users/set-up-password-recovery-for-users</a><br>
+<a href="https://support.google.com/a/answer/1110339">Restore a suspended user &mdash; https://support.google.com/a/answer/1110339</a></div>
+</body>
+</html>

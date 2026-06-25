@@ -1,0 +1,92 @@
+{"requests":{"question":[
+  {
+    "questionid": "q_kc5_1",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "What is the underlying mechanism that lets a director apply different recovery, 2SV, and self-recovery policies to students versus staff?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Placing students and staff in separate organizational units (OUs)"}},
+      {"id": "2", "body": {"$value": "Assigning every student and staff member a different license type"}},
+      {"id": "3", "body": {"$value": "Giving each population a different primary domain"}},
+      {"id": "4", "body": {"$value": "Tagging users with custom directory attributes"}}
+    ]},
+    "answer": {"value": [{"$value": "1"}]}
+  },
+  {
+    "questionid": "q_kc5_2",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "For under-13 (COPPA) student accounts, what is the recommended approach to account recovery?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Collect each student's personal phone and email so they can self-recover"}},
+      {"id": "2", "body": {"$value": "Use admin-driven password resets rather than storing personal student recovery phone/email; recovery info is OFF by default for K-12 students"}},
+      {"id": "3", "body": {"$value": "Require students to set up Advanced Protection so recovery is automatic"}},
+      {"id": "4", "body": {"$value": "Share one recovery email across the whole grade level"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  },
+  {
+    "questionid": "q_kc5_3",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "While investigating a possibly compromised admin account, where in the Admin console do you review configuration changes such as a newly granted admin privilege or changed recovery settings?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Billing > Subscriptions"}},
+      {"id": "2", "body": {"$value": "Directory > Users > Bulk update"}},
+      {"id": "3", "body": {"$value": "Reporting > Audit and investigation > Admin log events"}},
+      {"id": "4", "body": {"$value": "Apps > Google Workspace > Gmail settings"}}
+    ]},
+    "answer": {"value": [{"$value": "3"}]}
+  },
+  {
+    "questionid": "q_kc5_4",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Why does the Alert center rule \"User granted Admin privilege\" matter for incident response?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "It tracks license usage so you can reclaim unused seats"}},
+      {"id": "2", "body": {"$value": "It can signal an attacker self-escalating by granting themselves admin rights"}},
+      {"id": "3", "body": {"$value": "It notifies users that their password is about to expire"}},
+      {"id": "4", "body": {"$value": "It confirms that scheduled backups completed successfully"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  },
+  {
+    "questionid": "q_kc5_5",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "When you discover a compromised user account, what is the correct FIRST step?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Reset the password first, then decide whether further action is needed"}},
+      {"id": "2", "body": {"$value": "Delete the account immediately to stop the attacker"}},
+      {"id": "3", "body": {"$value": "Suspend the account, which resets sign-in cookies and OAuth tokens"}},
+      {"id": "4", "body": {"$value": "Email the user and wait for them to confirm the activity"}}
+    ]},
+    "answer": {"value": [{"$value": "3"}]}
+  },
+  {
+    "questionid": "q_kc5_6",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Why is a password reset alone insufficient to remediate a compromised account?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Because the new password could be guessed again within minutes"}},
+      {"id": "2", "body": {"$value": "Because existing sessions/tokens, OAuth grants, app passwords, and mail forwarding/filters persist, so you must also revoke tokens and review forwarding and delegation"}},
+      {"id": "3", "body": {"$value": "Because a password reset also deletes the user's mailbox by default"}},
+      {"id": "4", "body": {"$value": "Because password resets are not logged in the audit tools"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  }
+]}}

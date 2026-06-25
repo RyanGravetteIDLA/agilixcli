@@ -1,0 +1,57 @@
+{
+  "requests": {
+    "question": [
+      {
+        "questionid": "q_kc1_1", "entityid": "267910529", "schema": "2", "score": 1, "partial": false,
+        "body": {"$value": "Why does Google recommend that an organization maintain more than one super administrator account?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "So a lost or compromised super-admin account can be reset by another super admin"}},
+          {"id": "2", "body": {"$value": "To share the workload of answering daily staff email"}},
+          {"id": "3", "body": {"$value": "Because each Google Workspace license requires its own administrator"}},
+          {"id": "4", "body": {"$value": "To increase the number of recovery phone numbers Google keeps on file"}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      },
+      {
+        "questionid": "q_kc1_2", "entityid": "267910529", "schema": "2", "score": 1, "partial": false,
+        "body": {"$value": "True or False: A break-glass emergency admin account should be used for daily administrative work so it stays active and familiar."},
+        "interaction": {"type": "choice", "flags": 0, "choice": [
+          {"id": "1", "body": {"$value": "True"}},
+          {"id": "2", "body": {"$value": "False"}}
+        ]},
+        "answer": {"value": [{"$value": "2"}]}
+      },
+      {
+        "questionid": "q_kc1_3", "entityid": "267910529", "schema": "2", "score": 1, "partial": false,
+        "body": {"$value": "Your district has lost access to its domain registrar and DNS zone. Which super-admin recovery path is now blocked?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "The domain-ownership (TXT/CNAME) verification escalation with Google support"}},
+          {"id": "2", "body": {"$value": "A second super admin resetting the locked admin's password"}},
+          {"id": "3", "body": {"$value": "An admin generating backup verification codes for a user"}},
+          {"id": "4", "body": {"$value": "Reactivating a suspended user account"}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      },
+      {
+        "questionid": "q_kc1_4", "entityid": "267910529", "schema": "2", "score": 1, "partial": false,
+        "body": {"$value": "What is the recommended way to store a break-glass account's backup verification codes?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Printed and stored offline in a secure physical location"}},
+          {"id": "2", "body": {"$value": "In a Google Doc shared with all super admins"}},
+          {"id": "3", "body": {"$value": "Emailed to the IT distribution list for quick access"}},
+          {"id": "4", "body": {"$value": "Saved in the browser password manager on the admin's laptop"}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      },
+      {
+        "questionid": "q_kc1_5", "entityid": "267910529", "schema": "2", "score": 1, "partial": false,
+        "body": {"$value": "True or False: On Google Workspace for Education editions, super-admin self-recovery is OFF by default, so you must maintain another recovery path such as a second super admin."},
+        "interaction": {"type": "choice", "flags": 0, "choice": [
+          {"id": "1", "body": {"$value": "True"}},
+          {"id": "2", "body": {"$value": "False"}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      }
+    ]
+  }
+}

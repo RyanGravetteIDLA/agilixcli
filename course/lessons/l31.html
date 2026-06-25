@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Password Resets from the Admin Console</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 3 · Admin-Assisted User Recovery</div>
+<h1>Password Resets from the Admin Console</h1>
+<p class="lead">The most common help-desk request you'll field. A few clicks in the Admin console, with one big caveat for SSO districts.</p>
+
+<h2>Where to do it</h2>
+<p>Reset a password from <span class="path">Admin console &rarr; Directory &rarr; Users</span>. Hover the user's row and choose <strong>Reset password</strong>, or open the user's account page and use the same action there.</p>
+
+<h3>The reset workflow</h3>
+<ol class="steps">
+  <li>Go to <span class="path">Directory &rarr; Users</span> and locate the user (search by name or email).</li>
+  <li>Hover the row &rarr; <strong>Reset password</strong> (or open the account page first).</li>
+  <li>Choose <strong>Automatically generate a password</strong> &mdash; recommended for compromised accounts &mdash; or <strong>Create password</strong> to type a specific one.</li>
+  <li>Leave <strong>Ask the user to change their password</strong> checked to require a change at next sign-in (recommended).</li>
+  <li>Click <strong>Reset</strong>.</li>
+  <li>Optionally email the new password or a reset link to the user (or a recovery address).</li>
+</ol>
+
+<h2>Which option, when</h2>
+<table>
+  <tr><th>Option</th><th>Use it for</th></tr>
+  <tr><td>Automatically generate a password</td><td>Compromised or unknown-state accounts &mdash; you never handle a chosen secret, and a strong random value is created.</td></tr>
+  <tr><td>Create password</td><td>Routine help-desk resets where you'll read a temporary password to the user. Pair it with require-change-at-next-sign-in.</td></tr>
+</table>
+
+<p>The <strong>Ask the user to change their password</strong> checkbox maps to require-change-at-next-sign-in. Keep it on so the temporary value you set never becomes the user's standing password.</p>
+
+<div class="callout danger"><span class="label">Hard constraint &mdash; SSO and Password Sync</span>If your district uses third-party SSO or Google Cloud Directory Sync Password Sync, this Admin-console reset does <strong>not</strong> work. The password lives in your external identity provider (IdP) or Active Directory, not in Google. For those orgs, reset the password in the IdP &mdash; the Google-side reset will have no effect.</div>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Google relabels actions and moves buttons periodically. Confirm the exact wording of <strong>Reset password</strong>, the password options, and the change-at-next-sign-in checkbox in your own <span class="path">Directory &rarr; Users</span> before documenting it for your help desk. Note: Google is migrating Admin Help from <span class="path">support.google.com/a/&hellip;</span> to <span class="path">knowledge.workspace.google.com/admin/&hellip;</span>; old links redirect.</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>For password-managed Google accounts, the Admin console is your one-stop reset. For any account fronted by an external IdP or Password Sync, the Admin console is the wrong tool &mdash; route those resets to the IdP and make sure your tier-1 staff know which population is which.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+<a href="https://support.google.com/a/answer/6236387">Reset a user's password &mdash; https://support.google.com/a/answer/6236387</a></div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{"requests":{"question":[
+{
+  "questionid": "q_kc3_1",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "A teacher signs in through your third-party SSO / Password Sync setup. They forgot their password and you reset it under Directory > Users > Reset password. Why does the reset fail to help them sign in?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "Their actual password lives in the external IdP/AD, not in Google, so the Google reset does not apply"}},
+    {"id": "2", "body": {"$value": "The reset always works; the teacher just needs to clear their browser cache"}},
+    {"id": "3", "body": {"$value": "Admin password resets only fail when the user has 2-Step Verification turned on"}},
+    {"id": "4", "body": {"$value": "The reset failed because the new password did not meet length requirements"}}
+  ]},
+  "answer": {"value": [{"$value": "1"}]}
+},
+{
+  "questionid": "q_kc3_2",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "A student account was deleted in error. For how long can the account be restored before its data is purged?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "5 days"}},
+    {"id": "2", "body": {"$value": "20 days"}},
+    {"id": "3", "body": {"$value": "60 days"}},
+    {"id": "4", "body": {"$value": "Indefinitely, as long as a license is available"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+},
+{
+  "questionid": "q_kc3_3",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "You try to restore a recently deleted user but the restore fails. What is the most likely K-12 cause?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "More than 20 days have passed, so this is impossible regardless of action"}},
+    {"id": "2", "body": {"$value": "No license is available for the user's previous edition/service, so the restore cannot complete"}},
+    {"id": "3", "body": {"$value": "The user was on third-party SSO, which blocks all restores"}},
+    {"id": "4", "body": {"$value": "Only a super admin in the primary domain can restore users"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+},
+{
+  "questionid": "q_kc3_4",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "A staff member is locked out by 2-Step Verification (lost phone). Since only the user can turn 2SV on or off, what is the admin's primary remedy to get them signed in?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "Turn off 2-Step Verification for the user from the admin console"}},
+    {"id": "2", "body": {"$value": "Provide a backup verification code (Directory > Users > user > Security > Get backup verification codes)"}},
+    {"id": "3", "body": {"$value": "Reset the user's password, which clears the 2SV requirement"}},
+    {"id": "4", "body": {"$value": "Delete and recreate the account to remove 2SV"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+},
+{
+  "questionid": "q_kc3_5",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "A user lost the security key/passkey they used as their second factor. What is the correct admin-and-user sequence to restore access?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "The admin enrolls a replacement security key on the user's behalf and hands it to them"}},
+    {"id": "2", "body": {"$value": "The admin transfers the lost key's credential to a new key from the console"}},
+    {"id": "3", "body": {"$value": "The admin removes the lost factor, then the user re-enrolls a new security key/passkey themselves"}},
+    {"id": "4", "body": {"$value": "The user simply buys an identical key model and it works without any re-enrollment"}}
+  ]},
+  "answer": {"value": [{"$value": "3"}]}
+},
+{
+  "questionid": "q_kc3_6",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "Why must K-12 student password resets route through an administrator rather than student self-recovery?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "The 'Allow users and non-super admins to recover their account' setting is unavailable for Education users under age 18"}},
+    {"id": "2", "body": {"$value": "Students are never allowed to have recovery phone numbers on file"}},
+    {"id": "3", "body": {"$value": "Self-recovery works for students but takes up to 20 days to complete"}},
+    {"id": "4", "body": {"$value": "Self-recovery is disabled for everyone on Education editions, students and staff alike"}}
+  ]},
+  "answer": {"value": [{"$value": "1"}]}
+}
+]}}

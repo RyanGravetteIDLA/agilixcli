@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Domain-Ownership Escalation, Walked</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 2 · Super Admin Account Recovery</div>
+<h1>The Domain-Ownership Escalation, Walked</h1>
+<p class="lead">When the normal recovery flow fails — no second admin, no recovery info — Google falls back to the one thing it can always tie to your organization: control of your primary domain's DNS. Here is the formal escalation, step by step.</p>
+
+<h2>The core idea</h2>
+<p>This path does not verify <em>you</em>. It verifies that whoever is making the request controls the <strong>primary (verified) domain</strong> of the Google Workspace account. Proving that control — by writing a record into your DNS zone — is Google's proof that the request comes from the organization that owns the tenancy.</p>
+
+<ol class="steps">
+  <li>
+    <strong>Start the recovery flow and let it fail.</strong> Begin the normal account recovery. After the automated attempt is exhausted, click <strong>Contact support</strong>. You are routed to the Apps Admin Toolbox at <span class="path">https://toolbox.googleapps.com</span>.
+  </li>
+  <li>
+    <strong>Enter an alternate email.</strong> Provide an email that is <em>not</em> the locked account — Google needs an out-of-band channel to reach you. Google issues a <strong>support reference number</strong> for the case.
+  </li>
+  <li>
+    <strong>Add a DNS record to your primary domain.</strong> At your domain host, create a <strong>CNAME</strong> or <strong>TXT</strong> record on the primary domain. The CNAME uses the reference number as its label, in the form <span class="path">{reference_number}.{your_domain}</span>.
+  </li>
+  <li>
+    <strong>Wait for propagation, then verify.</strong> DNS changes can take up to <strong>24 hours</strong> to propagate. Confirm the record is live using Google's Dig tools at <span class="path">https://toolbox.googleapps.com/apps/dig/</span> — check <span class="path">CNAME/{reference_number}.{your_domain}</span> and <span class="path">TXT/{your_domain}</span> before proceeding.
+  </li>
+  <li>
+    <strong>Submit the request.</strong> Click <strong>Check Again</strong>, select <strong>"Request for Password Reset (Recommended)"</strong>, and <strong>Submit Request</strong>. Google Support then contacts you through the alternate email for additional identity verification.
+  </li>
+</ol>
+
+<h2>What your org needs on hand</h2>
+<ul>
+  <li>Access to the <strong>DNS zone for the primary / verified domain</strong>.</li>
+  <li>The ability to <strong>add CNAME or TXT records</strong> at your domain host.</li>
+  <li>An <strong>out-of-band alternate email</strong> — separate from the locked Workspace account — that Support can reach you at.</li>
+</ul>
+
+<div class="callout danger"><span class="label">The permanent-lockout trap</span>This entire path collapses if you no longer control DNS for the primary domain — a zone managed by a departed vendor, an expired domain registration, or a registrar account no one can log into. With no DNS control, there is no way to prove organizational ownership, and this becomes one of the top causes of <strong>permanent</strong> lockout. This is the concrete payoff of the domain-and-DNS custody discipline from L1.3: who holds your registrar and DNS credentials <em>is</em> your last line of recoverability.</div>
+
+<div class="callout verify"><span class="label">Verify in your console</span>The Admin Toolbox labels, the exact button wording ("Contact support," "Check Again," "Request for Password Reset"), and the Dig tool URLs are revised periodically by Google. Walk the entry points in your own environment ahead of time, and confirm you can reach and edit your primary domain's DNS zone <em>before</em> an incident forces you to.</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>The slow-path recovery story reduces to one question: can your team write a DNS record into the primary domain's zone today? If the answer is "I'm not sure who controls that," fix it now. Confirm registrar and DNS access, document it, and avoid leaving the primary domain in a vendor-only account — that single dependency is the difference between a recoverable outage and a permanent loss of the tenancy.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+Recovering administrator access — <a href="https://support.google.com/a/answer/33561">https://support.google.com/a/answer/33561</a><br>
+Verify your domain with a TXT record — <a href="https://support.google.com/a/answer/16018515">https://support.google.com/a/answer/16018515</a><br>
+About TXT records — <a href="https://support.google.com/a/answer/2716800">https://support.google.com/a/answer/2716800</a></div>
+</body>
+</html>

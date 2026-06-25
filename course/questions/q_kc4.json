@@ -1,0 +1,90 @@
+{"requests":{"question":[
+  {
+    "questionid": "q_kc4_1",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Which 2-Step Verification method should a technology director DISCOURAGE because it is carrier-dependent and can be intercepted, while steering users toward the strongest phishing-resistant options?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Security keys, because they require special hardware"}},
+      {"id": "2", "body": {"$value": "SMS/text codes, while promoting security keys and passkeys as the strongest options"}},
+      {"id": "3", "body": {"$value": "Passkeys, because they are too new to trust"}},
+      {"id": "4", "body": {"$value": "The Google Authenticator app, because codes rotate too quickly"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  },
+  {
+    "questionid": "q_kc4_2",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "True or False: The \"Only security key\" 2-Step Verification policy now accepts both physical security keys AND passkeys."},
+    "interaction": {"type": "choice", "flags": 0, "choice": [
+      {"id": "1", "body": {"$value": "True"}},
+      {"id": "2", "body": {"$value": "False"}}
+    ]},
+    "answer": {"value": [{"$value": "1"}]}
+  },
+  {
+    "questionid": "q_kc4_3",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "What is the safest way to roll out 2SV enforcement so you do not lock users out of their accounts?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Turn enforcement on for the whole domain immediately so no one can delay enrolling"}},
+      {"id": "2", "body": {"$value": "Let users enroll first using a configuration group with enforcement off (or the new-user enrollment grace period), track enrollment, then enforce, remembering that group settings override OU settings"}},
+      {"id": "3", "body": {"$value": "Enforce at the top-level OU and rely on users to call the help desk when they are locked out"}},
+      {"id": "4", "body": {"$value": "Disable all recovery options first, then enforce 2SV the same day"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  },
+  {
+    "questionid": "q_kc4_4",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Google now mandates 2-Step Verification on admin accounts for Workspace for Education, and admins cannot bypass it. What is the only alternative to enrolling a super admin in 2SV?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Submit a support ticket to request a permanent exemption"}},
+      {"id": "2", "body": {"$value": "Move the admin into a child OU where the policy is turned off"}},
+      {"id": "3", "body": {"$value": "Remove the admin role from the account; otherwise the account must use 2SV, so enroll all super admins now"}},
+      {"id": "4", "body": {"$value": "Set an app password so the admin can keep signing in without 2SV"}}
+    ]},
+    "answer": {"value": [{"$value": "3"}]}
+  },
+  {
+    "questionid": "q_kc4_5",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Which statement about the \"skip passwords\" (passwordless passkey) setting is correct?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "It is ON by default and immediately deletes every user's password"}},
+      {"id": "2", "body": {"$value": "It is OFF by default, and enabling it does not remove the user's password fallback"}},
+      {"id": "3", "body": {"$value": "It is OFF by default, but enabling it permanently removes the user's password"}},
+      {"id": "4", "body": {"$value": "It can only be enabled for student accounts, not staff"}}
+    ]},
+    "answer": {"value": [{"$value": "2"}]}
+  },
+  {
+    "questionid": "q_kc4_6",
+    "entityid": "267910529",
+    "schema": "2",
+    "score": 1,
+    "partial": false,
+    "body": {"$value": "Before enrolling high-risk staff in the Advanced Protection Program, what must a director do, and why?"},
+    "interaction": {"type": "choice", "flags": 2, "choice": [
+      {"id": "1", "body": {"$value": "Nothing special, because Advanced Protection makes account recovery faster and easier"}},
+      {"id": "2", "body": {"$value": "Disable 2SV first, because Advanced Protection replaces it entirely"}},
+      {"id": "3", "body": {"$value": "Pre-stage a backup factor (an extra security key or passkey, or recovery email plus phone), because Advanced Protection intentionally hardens recovery and losing all factors triggers a multi-day identity-verification delay"}},
+      {"id": "4", "body": {"$value": "Store each user's password in a shared spreadsheet so the help desk can restore access instantly"}}
+    ]},
+    "answer": {"value": [{"$value": "3"}]}
+  }
+]}}

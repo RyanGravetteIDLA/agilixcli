@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enforcement Without Lockouts</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 4 · Org-Wide Controls</div>
+<h1>Enforcement Without Lockouts</h1>
+<p class="lead">Allowing 2SV is harmless. Enforcing it is where districts lock people out. The difference between a clean rollout and a help-desk flood is sequencing, grace periods, and a recovery net staged before the cutover.</p>
+
+<h2>The enforcement dropdown</h2>
+<p>Under <span class="path">Security &rarr; Authentication &rarr; 2-Step Verification</span>, the enforcement control offers three states:</p>
+<table>
+  <tr><th>Setting</th><th>Behavior</th></tr>
+  <tr><td><strong>Off</strong></td><td>2SV is voluntary. Users may enroll, but sign-in does not require it.</td></tr>
+  <tr><td><strong>On</strong></td><td>Enforced immediately. Anyone not enrolled is blocked at next sign-in.</td></tr>
+  <tr><td><strong>Turn on enforcement from date</strong></td><td>Date picker sets a future cutover. The change typically takes effect within ~24&ndash;48 hours of the chosen date.</td></tr>
+</table>
+
+<h2>The new-user enrollment grace period</h2>
+<p>Pair enforcement with a <strong>New user enrollment period</strong>. This grace window lets brand-new users sign in with password only while they get their second factor set up. Configurable values run from <strong>1 day to 6 months</strong> (1 day, 1 week, 2 weeks, 1 month, 6 months). Without it, a newly created account in an enforcing OU is locked out before it can enroll.</p>
+
+<h2>How people actually get locked out</h2>
+<p>Three failure modes account for most enforcement-day lockouts:</p>
+<ul>
+  <li>A user is <strong>moved into an enforcing OU while still unenrolled</strong>.</li>
+  <li>A <strong>stricter method policy is enforced</strong> (e.g., "Only security key") without the user holding the required factor.</li>
+  <li>A user <strong>removes their last second step</strong> and has no fallback.</li>
+</ul>
+
+<h2>The safe rollout pattern</h2>
+<ol class="steps">
+  <li><strong>Notify users</strong> with dates, the "why," and enrollment instructions.</li>
+  <li><strong>Allow 2SV with Enforcement Off</strong> so users can enroll on their own schedule.</li>
+  <li><strong>Drive voluntary enrollment</strong> through reminders and deadlines.</li>
+  <li><strong>Track enrollment</strong> using the Admin console security reports to see who is and isn't covered.</li>
+  <li><strong>Then enforce</strong> &mdash; phasing by OU or by configuration group so problems stay contained.</li>
+</ol>
+
+<h2>Precedence: use a configuration group as a holding pen</h2>
+<p>Remember the precedence rule: <em>"Group settings override organizational units."</em> You can exploit this. Create a <strong>configuration group</strong> of not-yet-ready users with enforcement <strong>OFF</strong>, let them enroll inside it, then move them into the enforcing OU once they hold a second factor. The group override shields stragglers from the OU's enforcement until they're ready &mdash; no premature lockout.</p>
+
+<div class="callout danger"><span class="label">Education-specific: Google enforces 2SV on admins for you</span>For Workspace for Education, Google now <strong>mandates 2SV on admin accounts</strong> as its own policy, separate from anything you configure. Super admins receive ~90 days notice; other admins ~60. After the date, lockout is progressive: reminders, then <strong>mobile access blocked at 15 days</strong>, then <strong>web access blocked at 30 days</strong>. Critically: "Admins subject to the Google-set 2SV enforcement policy cannot bypass it" &mdash; the only alternative is removing the admin role. Enroll every super admin now and stage their backup codes (L4.4).</div>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Confirm the current enrollment-period increments and the exact enforcement labels at <span class="path">Security &rarr; Authentication &rarr; 2-Step Verification</span>, and check your live enrollment coverage in the security reports before setting any cutover date. Google's defaults and effective-time windows in this area drift.</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>Never flip enforcement "On" cold. Allow &rarr; drive enrollment &rarr; verify coverage &rarr; enforce by OU or group, with a configuration-group holding pen for stragglers and backup codes pre-staged. The Google-set admin mandate means your super admins are on a clock whether or not you act &mdash; treat that as the first deadline.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+<a href="https://knowledge.workspace.google.com/admin/security/deploy-2-step-verification">Deploy 2-Step Verification &mdash; https://knowledge.workspace.google.com/admin/security/deploy-2-step-verification</a><br>
+<a href="https://knowledge.workspace.google.com/admin/security/avoid-account-lockouts-when-2-step-verification-is-enforced-by-your-organization">Avoid account lockouts when 2SV is enforced &mdash; https://knowledge.workspace.google.com/admin/security/avoid-account-lockouts-when-2-step-verification-is-enforced-by-your-organization</a><br>
+<a href="https://knowledge.workspace.google.com/admin/security/about-2sv-enforcement-for-admins">About 2SV enforcement for admins &mdash; https://knowledge.workspace.google.com/admin/security/about-2sv-enforcement-for-admins</a></div>
+</body>
+</html>

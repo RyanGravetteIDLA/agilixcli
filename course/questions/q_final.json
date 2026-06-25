@@ -1,0 +1,189 @@
+{
+  "requests": {
+    "question": [
+      {
+        "questionid": "q_final_1",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "Your district's only super administrator resigned on Friday and left without transferring access. On Monday morning no one can sign in to the Google Admin console with super admin rights. What is the BEST first action to regain control of the tenant?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Email Google's generic support address and wait for a reply before doing anything else."}},
+          {"id": "2", "body": {"$value": "Identify any other existing super admin to reset access, and if none exists, begin Google's domain-ownership recovery by adding the DNS TXT/CNAME record they provide."}},
+          {"id": "3", "body": {"$value": "Go to the consumer sign-in page and use 'Forgot password' on your own staff account to elevate it."}},
+          {"id": "4", "body": {"$value": "Create a brand-new Google Workspace tenant and migrate everyone into it over the weekend."}}
+        ]},
+        "answer": {"value": [{"$value": "2"}]}
+      },
+      {
+        "questionid": "q_final_2",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "A 3rd-grade student in your Education tenant forgot their Workspace password and cannot log in to take a state assessment. What is the supported way to get this under-18 student back into their account?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Have the student click 'Forgot password' on the sign-in page and follow self-recovery prompts."}},
+          {"id": "2", "body": {"$value": "Add a recovery phone number to the student's account so they can text themselves a code."}},
+          {"id": "3", "body": {"$value": "An administrator resets the student's password from the Admin console, since self-recovery is unavailable for under-18 Education users."}},
+          {"id": "4", "body": {"$value": "Tell the parent to call Google support directly to reset the child's password."}}
+        ]},
+        "answer": {"value": [{"$value": "3"}]}
+      },
+      {
+        "questionid": "q_final_3",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "A teacher's Workspace account is actively sending phishing emails to the entire staff directory, indicating it is compromised. What should you do FIRST to stop the damage?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Reset the teacher's password and assume the attacker will be locked out."}},
+          {"id": "2", "body": {"$value": "Suspend the account immediately, which terminates active sessions and invalidates OAuth tokens and cookies."}},
+          {"id": "3", "body": {"$value": "Delete the account so the phishing stops permanently."}},
+          {"id": "4", "body": {"$value": "Turn on 2-Step Verification for the teacher and wait for them to enroll."}}
+        ]},
+        "answer": {"value": [{"$value": "2"}]}
+      },
+      {
+        "questionid": "q_final_4",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "You plan to enforce 2-Step Verification district-wide starting next month. You want to avoid a wave of lockout tickets on enforcement day. What is the BEST approach?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Turn on enforcement for everyone today so the deadline cannot slip."}},
+          {"id": "2", "body": {"$value": "Disable 2SV entirely to keep things simple and avoid lockouts."}},
+          {"id": "3", "body": {"$value": "Allow users a grace period (or a configuration group with enforcement off), track enrollment progress, and only then enforce once adoption is high."}},
+          {"id": "4", "body": {"$value": "Require everyone to use SMS text codes as their only second factor."}}
+        ]},
+        "answer": {"value": [{"$value": "3"}]}
+      },
+      {
+        "questionid": "q_final_5",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "A staff member who uses a hardware security key for 2SV lost the key and is now locked out. What is the BEST way to restore their access while keeping the account secure?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Turn off 2-Step Verification permanently for that user so they never get locked out again."}},
+          {"id": "2", "body": {"$value": "From the Admin console remove the lost key, issue a backup code so they can sign in, then have them enroll a new key or passkey."}},
+          {"id": "3", "body": {"$value": "Reset their session cookies and tell them to keep trying the old key."}},
+          {"id": "4", "body": {"$value": "Delete the account and recreate it with the same username."}}
+        ]},
+        "answer": {"value": [{"$value": "2"}]}
+      },
+      {
+        "questionid": "q_final_6",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "You deleted a departing staff member's account 25 days ago. Their replacement now needs the old emails and Drive files. What is the reality of recovering that account?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Beyond the 20-day window the account and its data are purged and cannot be restored."}},
+          {"id": "2", "body": {"$value": "Simply restore it from 'Recently deleted users' in the Admin console."}},
+          {"id": "3", "body": {"$value": "Contact Google support and they will extend the deletion window retroactively."}},
+          {"id": "4", "body": {"$value": "Google Vault will automatically rebuild the live account from its archives."}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      },
+      {
+        "questionid": "q_final_7",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "After a near-lockout, you want to build resilience so the district is never locked out of the Admin console again. Which plan is the BEST?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Grant every teacher super admin rights so someone can always get in."}},
+          {"id": "2", "body": {"$value": "Store the recovery backup codes in a shared Google Doc the whole IT team can open."}},
+          {"id": "3", "body": {"$value": "Rely on one trusted admin's personal cell phone as the recovery factor."}},
+          {"id": "4", "body": {"$value": "Maintain at least two super admins plus a dedicated break-glass account with offline backup codes, and keep registrar/DNS access documented."}}
+        ]},
+        "answer": {"value": [{"$value": "4"}]}
+      },
+      {
+        "questionid": "q_final_8",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "You are enrolling your high-risk admin accounts in Google's Advanced Protection Program. What should you do BEFORE enrolling them?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Pre-stage a backup factor (a second security key or passkey, plus recovery email and phone), because Advanced Protection recovery has a multi-day delay."}},
+          {"id": "2", "body": {"$value": "Enroll each admin with only a single security key to keep the setup simple."}},
+          {"id": "3", "body": {"$value": "Disable backup codes so attackers cannot use them."}},
+          {"id": "4", "body": {"$value": "Enroll the admins quietly without telling them, to avoid pushback."}}
+        ]},
+        "answer": {"value": [{"$value": "1"}]}
+      },
+      {
+        "questionid": "q_final_9",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 1,
+        "partial": false,
+        "body": {"$value": "You try to restore a recently deleted staff account from 'Recently deleted users', but the restore fails. What is the MOST likely cause?"},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "The organizational unit the user belonged to was deleted, so the user has nowhere to go."}},
+          {"id": "2", "body": {"$value": "There is no available license for their edition; you must free up or assign a license first."}},
+          {"id": "3", "body": {"$value": "2-Step Verification on the account is blocking the restore."}},
+          {"id": "4", "body": {"$value": "The user's former manager must approve the restore before it can complete."}}
+        ]},
+        "answer": {"value": [{"$value": "2"}]}
+      },
+      {
+        "questionid": "q_final_10",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 2,
+        "partial": true,
+        "body": {"$value": "An administrator account in your tenant has been compromised. Which actions are part of a sound incident response? Select all that apply."},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Suspend the account to terminate active sessions."}},
+          {"id": "2", "body": {"$value": "Revoke the account's OAuth tokens and connected third-party app access, and reset the password."}},
+          {"id": "3", "body": {"$value": "Review the Admin audit logs and check for malicious mail forwarding or filter rules."}},
+          {"id": "4", "body": {"$value": "Ignore it as long as the password has already been changed."}},
+          {"id": "5", "body": {"$value": "Immediately delete the account before investigating."}}
+        ]},
+        "answer": {"value": [{"$value": "1"}, {"$value": "2"}, {"$value": "3"}]}
+      },
+      {
+        "questionid": "q_final_11",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 2,
+        "partial": true,
+        "body": {"$value": "Which of the following are sound break-glass and super-admin resilience practices for a K-12 district? Select all that apply."},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Keep at least two super administrators."}},
+          {"id": "2", "body": {"$value": "Maintain a dedicated, rarely-used emergency (break-glass) account."}},
+          {"id": "3", "body": {"$value": "Use the break-glass account for daily administrative work so it stays warm."}},
+          {"id": "4", "body": {"$value": "Print the break-glass backup codes and store them offline in a secure location."}},
+          {"id": "5", "body": {"$value": "Keep DNS and domain registrar access documented and accessible to authorized staff."}}
+        ]},
+        "answer": {"value": [{"$value": "1"}, {"$value": "2"}, {"$value": "4"}, {"$value": "5"}]}
+      },
+      {
+        "questionid": "q_final_12",
+        "entityid": "267910529",
+        "schema": "2",
+        "score": 2,
+        "partial": true,
+        "body": {"$value": "Which statements about recovery information and self-recovery are TRUE for a K-12 Education tenant? Select all that apply."},
+        "interaction": {"type": "choice", "flags": 2, "choice": [
+          {"id": "1", "body": {"$value": "Super-admin self-recovery is off by default on Education editions and must be turned on."}},
+          {"id": "2", "body": {"$value": "Self-recovery for under-18 students is unavailable; an admin must reset their access."}},
+          {"id": "3", "body": {"$value": "The super-admin account recovery phone option is always available and cannot be disabled."}},
+          {"id": "4", "body": {"$value": "Students should set a personal recovery phone number so they can reset their own passwords."}},
+          {"id": "5", "body": {"$value": "Self-recovery still works normally when sign-in is handled by a third-party SSO/identity provider."}}
+        ]},
+        "answer": {"value": [{"$value": "1"}, {"$value": "2"}, {"$value": "3"}]}
+      }
+    ]
+  }
+}

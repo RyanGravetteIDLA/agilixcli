@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super-Admin Self-Recovery &amp; Education Defaults</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 2 · Super Admin Account Recovery</div>
+<h1>Super-Admin Self-Recovery &amp; Education Defaults</h1>
+<p class="lead">Whether a locked super admin can recover their own account hinges on a single checkbox — one that ships OFF by default for nearly every K-12 edition. Knowing its state, and why Google recommends leaving it off, is the heart of the security-vs-recoverability trade-off.</p>
+
+<h2>The toggle</h2>
+<p>Find it at <span class="path">Admin console → Menu → Security → Authentication → Account recovery → Super admin account recovery</span>. The exact checkbox reads <strong>"Allow super admins to recover their account."</strong></p>
+
+<h2>Default state by edition</h2>
+<p>The setting is <strong>OFF by default</strong> for these editions:</p>
+<ul>
+  <li>Education Standard</li>
+  <li>Education Plus</li>
+  <li>Business Plus</li>
+  <li>Frontline Standard</li>
+  <li>Enterprise Essentials Plus</li>
+  <li>G Suite Basic</li>
+  <li>Cloud Identity Premium</li>
+</ul>
+<p>It is <strong>ON by default</strong> for other editions. For K-12 districts and online schools, the practical assumption is simple: <strong>your edition almost certainly ships with self-recovery OFF.</strong></p>
+
+<div class="callout danger"><span class="label">When the toggle is OFF</span>A locked super admin who clicks <strong>"Forgot password?"</strong> is told to <em>contact their administrator</em> — there is no self-service path. Recovery must go through <strong>another super admin</strong> or <strong>Google Support</strong> (the domain-ownership escalation from L2.2). If you have neither a second admin nor DNS control, an OFF toggle plus a single locked admin is a permanent-lockout scenario.</div>
+
+<h2>Why Google recommends keeping it OFF</h2>
+<p>Google's security guidance treats <strong>self-recovery disabled as the more secure posture</strong>. The reasoning: a self-recovery channel (the recovery email or phone) is itself an attack surface — phishing or social-engineering that channel can hand an attacker your highest-privilege account. Disabling it removes that surface.</p>
+<p>The trade-off is non-negotiable: if self-recovery is off, you <strong>must</strong> maintain a second super admin or a documented break-glass path. Otherwise you have hardened the front door and bricked the only key.</p>
+
+<h3>OFF vs ON, side by side</h3>
+<table>
+  <thead>
+    <tr><th>Setting</th><th>What it buys you</th><th>What it costs you</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OFF</strong> (Google-recommended)</td>
+      <td>More secure — no recovery-channel attack surface to phish or socially engineer.</td>
+      <td>No self-service recovery. <strong>Requires</strong> a second super admin or a break-glass path, or you risk permanent lockout.</td>
+    </tr>
+    <tr>
+      <td><strong>ON</strong></td>
+      <td>Self-service recovery — a locked admin can recover via pre-set recovery email/phone without a colleague.</td>
+      <td>The recovery channel becomes an attack surface. Phishing or social-engineering the recovery email/phone can compromise a super admin account.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>Phone recovery for super admins stays on regardless of this setting — but do not treat that as your safety net. The defensible K-12 posture is the one Google recommends: keep self-recovery <strong>OFF</strong>, and back it with at least two super admins plus a documented break-glass account. You get the hardened attack surface and a guaranteed way back in. Choosing OFF without that second key is the most common self-inflicted permanent lockout.</div>
+
+<div class="callout verify"><span class="label">Verify in your console</span>The per-edition default list is exactly the kind of detail Google revises without fanfare, and edition names themselves shift over time. Do not assume — open <span class="path">Security → Authentication → Account recovery → Super admin account recovery</span> and confirm the <em>current</em> state of "Allow super admins to recover their account" for your specific edition.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+Allow super admins to recover their password — <a href="https://support.google.com/a/answer/9436964">https://support.google.com/a/answer/9436964</a><br>
+GCP super admin best practices — <a href="https://docs.cloud.google.com/resource-manager/docs/super-admin-best-practices">https://docs.cloud.google.com/resource-manager/docs/super-admin-best-practices</a></div>
+</body>
+</html>

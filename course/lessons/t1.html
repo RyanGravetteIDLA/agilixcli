@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Director Owns the Recovery Problem</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 1 · Recovery Readiness</div>
+<h1>The Director Owns the Recovery Problem</h1>
+<p class="lead">Account recovery is a director-level risk decision, not a help-desk ticket you discover during an outage.</p>
+
+<h2>The recurring failure mode</h2>
+<p>Districts rarely lose access because of a clever attacker. They lose access because of a single point of failure in admin access that nobody planned around. The pattern repeats:</p>
+<ul>
+  <li><strong>The sole super admin leaves</strong> &mdash; or is terminated, or simply stops cooperating &mdash; and no other account can reset their password or demote them.</li>
+  <li><strong>DNS / registrar access was lost.</strong> Google's domain-ownership recovery path expects you to prove control of the domain; if you can't touch the DNS zone, that path is blocked.</li>
+  <li><strong>No break-glass account exists,</strong> and super-admin self-recovery is off by default for Education tenants. The organization falls back to slow, support-assisted recovery requiring proof of domain ownership.</li>
+</ul>
+<p>None of these are exotic. Each is a foreseeable, preventable single point of failure &mdash; which is exactly why they belong to the director, not to whoever happens to answer the phone that day.</p>
+
+<h2>The reframe: security and recoverability are in tension</h2>
+<p>Here is the part that catches experienced directors off guard. <strong>Every hardening control you enable raises lockout risk.</strong></p>
+<table>
+  <thead><tr><th>Hardening control</th><th>What it raises</th></tr></thead>
+  <tbody>
+    <tr><td>Enforce 2-Step Verification</td><td>A lost second factor can lock out the account</td></tr>
+    <tr><td>Restrict to security keys / passkeys only</td><td>A lost or broken key blocks sign-in</td></tr>
+    <tr><td>Enroll in Advanced Protection</td><td>Account-recovery options are deliberately narrowed</td></tr>
+    <tr><td>Disable super-admin self-recovery</td><td>The admin can no longer rescue themselves</td></tr>
+  </tbody>
+</table>
+<p>This is not an argument against hardening. It is an argument for pairing each control with its recovery counterpart. The director's actual job is to hold both sides of that ledger: do not enable a lockdown without first standing up the recovery mechanism that survives it.</p>
+
+<div class="callout danger"><span class="label">How districts get permanently locked out</span>No break-glass account + super-admin self-recovery off (the Education default) + a single admin = a district that can be locked out of its own tenant, recoverable only through slow Google support with proof of domain ownership.</div>
+
+<h2>What this course covers</h2>
+<p>Five modules, each closing one of the gaps above:</p>
+<ol>
+  <li><strong>Recovery readiness</strong> &mdash; framing, multiple super admins, break-glass accounts, recovery info, and the DNS/registrar dependency.</li>
+  <li><strong>Super-admin recovery</strong> &mdash; how to get a powerful account back when it is the one that is lost.</li>
+  <li><strong>Admin-assisted user recovery</strong> &mdash; resetting and recovering ordinary user accounts at scale.</li>
+  <li><strong>Org-wide 2SV / passkey policy</strong> &mdash; enforcing strong auth without manufacturing new lockouts.</li>
+  <li><strong>Governance, audit &amp; incident response</strong> &mdash; monitoring privileged changes and rehearsing the response.</li>
+</ol>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Self-recovery defaults differ by edition and have changed over time. Confirm your tenant's current super-admin and user recovery defaults under <span class="path">Security &rarr; Account recovery</span> rather than assuming the Education default still applies.</div>
+<div class="callout takeaway"><span class="label">Director takeaway</span>Treat recovery as a risk you own. Before you tighten any auth control, identify and stand up the recovery counterpart that will survive it &mdash; prevention is far cheaper than support-assisted heroics.</div>
+<div class="sources"><strong>Sources</strong><br><a href="https://support.google.com/a/answer/33561">Recovering administrator access</a><br><a href="https://support.google.com/a/answer/9011373">Security best practices for administrator accounts</a></div>
+</body>
+</html>

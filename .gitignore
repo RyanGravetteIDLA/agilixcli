@@ -1,0 +1,4 @@
+.DS_Store
+scratchpad/
+*.tmp
+baseline-manifest.json

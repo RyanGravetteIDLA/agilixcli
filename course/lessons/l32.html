@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restoring Deleted Users</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 3 · Admin-Assisted User Recovery</div>
+<h1>Restoring Deleted Users</h1>
+<p class="lead">A deleted user isn't gone immediately &mdash; you have a 20-day window. After that, the account and its data are purged for good.</p>
+
+<h2>The 20-day window</h2>
+<p>Per Google: &ldquo;You can restore a user account (including administrator accounts) up to 20 days after deleting it.&rdquo; After 20 days, restoration is impossible and the user's data is permanently purged. Treat that clock as firm and act early.</p>
+
+<h3>How to restore</h3>
+<ol class="steps">
+  <li>Go to <span class="path">Directory &rarr; Users &rarr; More options &rarr; Recently deleted users</span>.</li>
+  <li>Hover the user's row and click <strong>Recover</strong>.</li>
+  <li>Click <strong>Continue</strong>.</li>
+  <li>Select an organizational unit (OU) to place the user in.</li>
+  <li>Click <strong>Recover</strong>.</li>
+</ol>
+<p>Processing typically completes within 24 hours, but can occasionally take up to 5 days for the account and its data to fully return.</p>
+
+<h2>The K-12 license gotcha</h2>
+<p>Restoration fails if there's no <strong>available license</strong> for the user's previous service or edition. How re-licensing behaves depends on your setup:</p>
+<ul>
+  <li><strong>Single service</strong> &mdash; the license auto-reactivates on restore.</li>
+  <li><strong>Multiple services with automatic license assignment</strong> &mdash; licenses auto-restore.</li>
+  <li><strong>Services without auto-assignment</strong> &mdash; you must manually reassign the license.</li>
+  <li><strong>Archived User (AU) licenses</strong> &mdash; always must be manually reassigned.</li>
+</ul>
+
+<h3>Username and alias conflicts</h3>
+<p>If the deleted user's username (or one of their aliases) is now used by another account, alias, or group, the restore is blocked. Change or delete that conflicting object first, then restore.</p>
+
+<h2>Can / cannot restore</h2>
+<table>
+  <tr><th>You CAN restore when&hellip;</th><th>You CANNOT restore when&hellip;</th></tr>
+  <tr><td>Deletion was within the last 20 days</td><td>More than 20 days have passed</td></tr>
+  <tr><td>An available license exists for the prior service/edition</td><td>No available license for that service/edition</td></tr>
+  <tr><td>The username/aliases are free (or you cleared the conflict)</td><td>The domain is unavailable or has been transferred</td></tr>
+</table>
+
+<div class="callout danger"><span class="label">Hard constraint</span>You cannot restore a user if it has been more than 20 days since deletion, if no license is available, or if the user's domain is unavailable or transferred. There is no override and no Google Support recovery after the 20-day purge.</div>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Confirm the <strong>Recently deleted users</strong> entry point under <span class="path">Directory &rarr; Users &rarr; More options</span> and check your available license counts under Billing before promising a restore &mdash; menus and license labels drift. This article now lives at <span class="path">knowledge.workspace.google.com/admin/&hellip;</span> (old <span class="path">support.google.com/a/&hellip;</span> links redirect).</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>The 20-day clock plus a free license are the two things that decide whether a deletion is reversible. Before mass off-boarding (e.g., graduating seniors), confirm you have spare licenses and keep deletions recoverable until you're certain &mdash; once the window closes, the data is unrecoverable.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+<a href="https://knowledge.workspace.google.com/admin/users/restore-a-recently-deleted-user">Restore a recently deleted user &mdash; https://knowledge.workspace.google.com/admin/users/restore-a-recently-deleted-user</a></div>
+</body>
+</html>

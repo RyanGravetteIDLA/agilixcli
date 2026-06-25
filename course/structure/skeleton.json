@@ -1,0 +1,31 @@
+{
+  "requests": {
+    "item": [
+      {"entityid":"267910529","itemid":"mod2","data":{"title":{"$value":"Module 2: Super Admin Account Recovery"},"parent":{"$value":"DEFAULT"},"sequence":{"$value":"b"}}},
+      {"entityid":"267910529","itemid":"mod4","data":{"title":{"$value":"Module 4: Org-Wide Controls — 2SV, Passkeys & Policy"},"parent":{"$value":"DEFAULT"},"sequence":{"$value":"d"}}},
+      {"entityid":"267910529","itemid":"mod5","data":{"title":{"$value":"Module 5: Governance, Audit & Incident Response"},"parent":{"$value":"DEFAULT"},"sequence":{"$value":"e"}}},
+
+      {"entityid":"267910529","itemid":"t1","data":{"title":{"$value":"L1.1 The Director Owns the Recovery Problem"},"parent":{"$value":"mod1"},"sequence":{"$value":"a"},"type":{"$value":"Resource"},"href":{"$value":"Assets/t1.html"}}},
+      {"entityid":"267910529","itemid":"t2","data":{"title":{"$value":"L1.2 Multiple Super Admins & the Break-Glass Account"},"parent":{"$value":"mod1"},"sequence":{"$value":"b"},"type":{"$value":"Resource"},"href":{"$value":"Assets/t2.html"}}},
+      {"entityid":"267910529","itemid":"l13","data":{"title":{"$value":"L1.3 Recovery Info, DNS & the Registrar Dependency"},"parent":{"$value":"mod1"},"sequence":{"$value":"c"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l13.html"}}},
+
+      {"entityid":"267910529","itemid":"t4","data":{"title":{"$value":"L2.1 The Five Recovery Paths, In Order"},"parent":{"$value":"mod2"},"sequence":{"$value":"a"},"type":{"$value":"Resource"},"href":{"$value":"Assets/t4.html"}}},
+      {"entityid":"267910529","itemid":"t3","data":{"title":{"$value":"L2.2 The Domain-Ownership Escalation, Walked"},"parent":{"$value":"mod2"},"sequence":{"$value":"b"},"type":{"$value":"Resource"},"href":{"$value":"Assets/t3.html"}}},
+      {"entityid":"267910529","itemid":"l23","data":{"title":{"$value":"L2.3 Super-Admin Self-Recovery & Education Defaults"},"parent":{"$value":"mod2"},"sequence":{"$value":"c"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l23.html"}}},
+
+      {"entityid":"267910529","itemid":"l31","data":{"title":{"$value":"L3.1 Password Resets from the Admin Console"},"parent":{"$value":"mod3"},"sequence":{"$value":"a"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l31.html"}}},
+      {"entityid":"267910529","itemid":"l32","data":{"title":{"$value":"L3.2 Restoring Deleted Users"},"parent":{"$value":"mod3"},"sequence":{"$value":"b"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l32.html"}}},
+      {"entityid":"267910529","itemid":"l33","data":{"title":{"$value":"L3.3 2SV Lockouts: Backup Codes, Lost Keys & Passkeys"},"parent":{"$value":"mod3"},"sequence":{"$value":"c"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l33.html"}}},
+      {"entityid":"267910529","itemid":"l34","data":{"title":{"$value":"L3.4 Suspend / Reactivate & the Self-Recovery Toggle"},"parent":{"$value":"mod3"},"sequence":{"$value":"d"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l34.html"}}},
+
+      {"entityid":"267910529","itemid":"l41","data":{"title":{"$value":"L4.1 2SV Methods in 2026"},"parent":{"$value":"mod4"},"sequence":{"$value":"a"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l41.html"}}},
+      {"entityid":"267910529","itemid":"l42","data":{"title":{"$value":"L4.2 Enforcement Without Lockouts"},"parent":{"$value":"mod4"},"sequence":{"$value":"b"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l42.html"}}},
+      {"entityid":"267910529","itemid":"l43","data":{"title":{"$value":"L4.3 Passkeys, Passwordless & Advanced Protection"},"parent":{"$value":"mod4"},"sequence":{"$value":"c"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l43.html"}}},
+      {"entityid":"267910529","itemid":"l44","data":{"title":{"$value":"L4.4 The Backup-Codes Program"},"parent":{"$value":"mod4"},"sequence":{"$value":"d"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l44.html"}}},
+
+      {"entityid":"267910529","itemid":"l51","data":{"title":{"$value":"L5.1 K-12 Specifics: OUs, COPPA & FERPA"},"parent":{"$value":"mod5"},"sequence":{"$value":"a"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l51.html"}}},
+      {"entityid":"267910529","itemid":"l52","data":{"title":{"$value":"L5.2 Audit & Monitoring"},"parent":{"$value":"mod5"},"sequence":{"$value":"b"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l52.html"}}},
+      {"entityid":"267910529","itemid":"l53","data":{"title":{"$value":"L5.3 Compromised vs Locked-Out: The 4-Step Order"},"parent":{"$value":"mod5"},"sequence":{"$value":"c"},"type":{"$value":"Resource"},"href":{"$value":"Assets/l53.html"}}}
+    ]
+  }
+}

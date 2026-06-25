@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2SV Methods in 2026</title>
+<style>
+  :root{--ink:#1a2230;--muted:#5b6675;--line:#e2e8f0;--accent:#1a73e8}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;max-width:820px;margin:0 auto;padding:28px 22px;font-size:16px}
+  h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px}
+  .eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:10px}
+  h2{font-size:1.15rem;margin:1.6em 0 .4em;padding-bottom:.2em;border-bottom:1px solid var(--line)}
+  h3{font-size:1rem;margin:1.2em 0 .3em}
+  ul,ol{padding-left:1.3em} li{margin:.25em 0}
+  .lead{font-size:1.05rem;color:var(--muted)}
+  .callout{border-radius:8px;padding:12px 16px;margin:1.1em 0;font-size:.95rem}
+  .verify{background:#fff8e1;border:1px solid #f0c000}
+  .takeaway{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .danger{background:#fdecea;border-left:4px solid #d93025}
+  .callout .label{font-weight:700;display:block;margin-bottom:2px}
+  .path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f1f5f9;padding:.05em .35em;border-radius:4px;font-size:.86em}
+  .sources{margin-top:2em;padding-top:1em;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+  .sources a{color:var(--accent);word-break:break-all}
+  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.92rem}
+  th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top} th{background:#f8fafc}
+  ol.steps li{margin:.5em 0}
+</style>
+</head>
+<body>
+<div class="eyebrow">Module 4 · Org-Wide Controls</div>
+<h1>2SV Methods in 2026</h1>
+<p class="lead">Choosing 2-Step Verification methods is the first hardening decision in your security stack. Each method trades convenience for phishing resistance, and each carries a distinct lockout and recovery profile.</p>
+
+<h2>Where to configure it</h2>
+<p>2SV policy lives at <span class="path">Security &rarr; Authentication &rarr; 2-Step Verification</span> and requires a super admin. Settings apply per organizational unit (OU) or configuration group, so you can pilot before going district-wide.</p>
+
+<h2>Supported methods</h2>
+<p>As of 2026, Google Workspace supports the following second factors:</p>
+<ul>
+  <li><strong>Security keys</strong> &mdash; FIDO hardware keys, including Google's Titan keys.</li>
+  <li><strong>Passkeys</strong> &mdash; FIDO credentials bound to a device or synced via a provider.</li>
+  <li><strong>Google prompt</strong> &mdash; a "Yes/No" push to a signed-in device.</li>
+  <li><strong>Google Authenticator (TOTP)</strong> &mdash; time-based one-time codes from an app.</li>
+  <li><strong>Backup codes</strong> &mdash; ten single-use codes (covered in L4.4).</li>
+  <li><strong>SMS / voice codes</strong> &mdash; codes delivered by text or phone call.</li>
+</ul>
+
+<h2>The "Allowed 2-Step Verification methods" dropdown</h2>
+<p>This dropdown is the lever that determines which factors your users may rely on. Three options matter:</p>
+<table>
+  <tr><th>Option</th><th>What it does</th></tr>
+  <tr><td><strong>Any</strong></td><td>Permits all supported methods. Most permissive; lowest lockout risk.</td></tr>
+  <tr><td><strong>Any except verification codes via text, phone call</strong></td><td>Removes SMS/voice. <strong>Users who currently verify via text or call will be locked out</strong> until they enroll a permitted method.</td></tr>
+  <tr><td><strong>Only security key</strong></td><td>Restricts to phishing-resistant factors. Per Google, this option now accepts <strong>both security keys and passkeys</strong> &mdash; they sit at the same phishing-resistance level.</td></tr>
+</table>
+
+<h2>What to recommend, what to retire</h2>
+<p><strong>Strongest:</strong> security keys and passkeys. Both are FIDO-based and phishing-resistant &mdash; the credential cannot be replayed against a spoofed sign-in page.</p>
+<p><strong>Discouraged:</strong> SMS. In Google's words, "Text messages are discouraged as they rely on external carrier networks and might be intercepted." The direction of travel is clear: SMS out, passkeys in. Treat SMS as a transitional fallback, not a destination.</p>
+
+<h2>Phishing resistance at a glance</h2>
+<table>
+  <tr><th>Method</th><th>Phishing resistance</th><th>Recovery note</th></tr>
+  <tr><td>Security key / passkey</td><td>High</td><td>Enroll a second key in advance; otherwise falls back to backup codes / admin action.</td></tr>
+  <tr><td>Google Authenticator (TOTP)</td><td>Medium</td><td>Re-enrollment needed if the device is lost; backup codes bridge the gap.</td></tr>
+  <tr><td>Google prompt</td><td>Medium</td><td>Tied to a signed-in device; backup codes bridge the gap.</td></tr>
+  <tr><td>SMS / voice</td><td>Low</td><td>Carrier-dependent; interceptable. Avoid as a primary factor.</td></tr>
+</table>
+
+<h2>The 2024 enrollment change you should know</h2>
+<p>In May 2024 Google simplified 2SV enrollment, and the behavior persists in 2026:</p>
+<ul>
+  <li>Users add Authenticator or a security key <em>before</em> turning on 2SV &mdash; a phone is no longer a prerequisite.</li>
+  <li>A user who <em>self-disables</em> 2SV now <strong>keeps</strong> their enrolled methods, so re-enabling is fast.</li>
+  <li>When an <strong>admin</strong> removes a user's 2SV, enrolled methods are still cleared &mdash; that user must re-enroll from scratch.</li>
+</ul>
+
+<div class="callout verify"><span class="label">Verify in your console</span>Google relabels and re-defaults these options periodically. Confirm the exact dropdown wording at <span class="path">Security &rarr; Authentication &rarr; 2-Step Verification</span> in your own console, and check whether "Only security key" in your tenant lists passkeys explicitly before you rely on it.</div>
+
+<div class="callout takeaway"><span class="label">Director takeaway</span>Standardize on security keys and passkeys for staff, keep Authenticator as a practical middle tier, and phase SMS out. Every method you restrict raises lockout risk &mdash; never enable a stricter "Allowed methods" setting without first confirming users hold a permitted factor and have backup codes in hand.</div>
+
+<div class="sources"><strong>Sources</strong><br>
+<a href="https://knowledge.workspace.google.com/admin/security/deploy-2-step-verification">Deploy 2-Step Verification &mdash; https://knowledge.workspace.google.com/admin/security/deploy-2-step-verification</a><br>
+<a href="https://workspaceupdates.googleblog.com/2024/05/updates-for-configuring-two-step-verification-for-your-google-account.html">Updates for configuring 2SV (May 2024) &mdash; https://workspaceupdates.googleblog.com/2024/05/updates-for-configuring-two-step-verification-for-your-google-account.html</a></div>
+</body>
+</html>

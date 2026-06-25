@@ -1,0 +1,75 @@
+{"requests":{"question":[
+{
+  "questionid": "q_kc2_1",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "Your only super admin is locked out of the Google Admin console. Which approach restores access the fastest?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "Open a support escalation case and prove DNS control of the primary domain"}},
+    {"id": "2", "body": {"$value": "Have another existing super admin sign in and reset the locked-out admin's password"}},
+    {"id": "3", "body": {"$value": "Wait up to 24 hours for DNS records to propagate before trying again"}},
+    {"id": "4", "body": {"$value": "Submit the user-promotion recovery form to request a new super admin"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+},
+{
+  "questionid": "q_kc2_2",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "In the formal support escalation path, how does an organization prove it controls the primary domain, and how long can it take?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "By adding a CNAME or TXT record at the DNS host; propagation can take up to 24 hours"}},
+    {"id": "2", "body": {"$value": "By emailing a scanned copy of the domain registration invoice; verified within minutes"}},
+    {"id": "3", "body": {"$value": "By replying from any address on the domain; verified instantly"}},
+    {"id": "4", "body": {"$value": "By uploading an HTML file to the school website; verified within 24 hours"}}
+  ]},
+  "answer": {"value": [{"$value": "1"}]}
+},
+{
+  "questionid": "q_kc2_3",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "A district has lost access to its DNS host and domain registrar. What does this mean for the domain-ownership recovery path?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "It is unaffected, since recovery verifies ownership by email instead of DNS"}},
+    {"id": "2", "body": {"$value": "It still works, but propagation simply takes longer than 24 hours"}},
+    {"id": "3", "body": {"$value": "The recovery path is blocked, because ownership cannot be proven without DNS/registrar control"}},
+    {"id": "4", "body": {"$value": "It speeds up, because support can verify ownership through the registrar directly"}}
+  ]},
+  "answer": {"value": [{"$value": "3"}]}
+},
+{
+  "questionid": "q_kc2_4",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "True or False: On Education editions, the 'Allow super admins to recover their account' setting (Security > Authentication > Account recovery) is ON by default, so maintaining a second super admin is unnecessary."},
+  "interaction": {"type": "choice", "flags": 0, "choice": [
+    {"id": "1", "body": {"$value": "True"}},
+    {"id": "2", "body": {"$value": "False"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+},
+{
+  "questionid": "q_kc2_5",
+  "entityid": "267910529",
+  "schema": "2",
+  "score": 1,
+  "partial": false,
+  "body": {"$value": "Under what conditions does the 'user-promotion' recovery form (a domain user requesting promotion to super admin) actually work?"},
+  "interaction": {"type": "choice", "flags": 2, "choice": [
+    {"id": "1", "body": {"$value": "Any domain user can use it at any time to instantly grant themselves super admin"}},
+    {"id": "2", "body": {"$value": "It works only after verifying domain ownership and only when existing admins are inactive or unresponsive"}},
+    {"id": "3", "body": {"$value": "It works only if the requester already holds a delegated admin role"}},
+    {"id": "4", "body": {"$value": "It works only on weekends when Google support manually reviews each request"}}
+  ]},
+  "answer": {"value": [{"$value": "2"}]}
+}
+]}}
